@@ -5,7 +5,6 @@ import { ServicesSection } from "@/components/home/ServicesSection";
 import { WhyUs } from "@/components/home/WhyUs";
 import { BeforeAfterSection } from "@/components/home/BeforeAfterSection";
 import { ProcessSection } from "@/components/home/ProcessSection";
-import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { FAQTeaser } from "@/components/home/FAQTeaser";
 import { CTASection } from "@/components/shared/CTASection";
 import { buildPageMetadata } from "@/lib/seo";
@@ -40,7 +39,6 @@ export default async function HomePage({
       <WhyUs />
       <BeforeAfterSection />
       <ProcessSection />
-      <TestimonialsSection />
       <FAQTeaser />
       <CTASection />
     </>
