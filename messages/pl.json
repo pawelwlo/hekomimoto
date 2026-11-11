@@ -1,0 +1,327 @@
+{
+  "meta": {
+    "home": {
+      "title": "Hekomimoto | Profesjonalne usuwanie wgnieceń PDR Poznań",
+      "description": "Usuwanie wgnieceń bez lakierowania (PDR), naprawa po gradobiciu i wgniecenia parkingowe w Poznaniu. Darmowa wycena ze zdjęć. Zadzwoń: +48 601 416 332."
+    },
+    "gallery": {
+      "title": "Galeria przed i po | Hekomimoto PDR Poznań",
+      "description": "Zobacz efekty naprawy wgnieceń metodą PDR — gradobicie, parking i wandalizm. Realizacje Hekomimoto w Poznaniu."
+    },
+    "about": {
+      "title": "O nas | Hekomimoto — eksperci PDR w Poznaniu",
+      "description": "Poznaj zespół Hekomimoto. Specjalizujemy się w usuwaniu wgnieceń bez lakierowania i naprawie szkód gradowych."
+    },
+    "faq": {
+      "title": "FAQ | Najczęściej zadawane pytania — Hekomimoto",
+      "description": "Odpowiedzi na pytania o metodę PDR, wycenę, czas naprawy i gwarancję jakości Hekomimoto."
+    },
+    "contact": {
+      "title": "Kontakt | Hekomimoto Poznań — darmowa wycena",
+      "description": "Skontaktuj się z Hekomimoto. Ul. Obornicka 344, Poznań. Telefon: +48 601 416 332. Wyślij zdjęcia do wyceny."
+    },
+    "services": {
+      "pdr": {
+        "title": "Usuwanie wgnieceń PDR | Hekomimoto Poznań",
+        "description": "Profesjonalne usuwanie wgnieceń metodą Paintless Dent Repair. Bez lakierowania, z zachowaniem oryginalnej powłoki."
+      },
+      "hail": {
+        "title": "Naprawa po gradobiciu | Hekomimoto Poznań",
+        "description": "Kompleksowa naprawa szkód gradowych metodą PDR. Szybka wycena, mobilne usługi, gwarancja jakości."
+      },
+      "parking": {
+        "title": "Wgniecenia parkingowe | Hekomimoto Poznań",
+        "description": "Usuwanie wgnieceń parkingowych bez lakierowania. Szybka naprawa drzwi, błotników i zderzaków."
+      },
+      "vandalism": {
+        "title": "Naprawa po wandalizmie | Hekomimoto Poznań",
+        "description": "Usuwanie wgnieceń po aktach wandalizmu metodą PDR. Przywracamy wygląd Twojego auta."
+      },
+      "mobile": {
+        "title": "Mobilne usługi PDR | Hekomimoto Poznań",
+        "description": "Mobilne usuwanie wgnieceń metodą PDR — przyjeżdżamy do Ciebie w Poznaniu i okolicach."
+      }
+    }
+  },
+  "nav": {
+    "home": "Strona główna",
+    "services": "Usługi",
+    "gallery": "Galeria",
+    "about": "O nas",
+    "faq": "FAQ",
+    "contact": "Kontakt",
+    "freeQuote": "Darmowa wycena",
+    "callNow": "Zadzwoń",
+    "openMenu": "Otwórz menu",
+    "closeMenu": "Zamknij menu",
+    "language": "Język"
+  },
+  "cta": {
+    "sendPhotos": "Wyślij zdjęcia do wyceny",
+    "callNow": "Zadzwoń teraz",
+    "whatsapp": "WhatsApp",
+    "freeQuote": "Darmowa wycena",
+    "learnMore": "Dowiedz się więcej",
+    "viewGallery": "Zobacz galerię",
+    "contactUs": "Skontaktuj się",
+    "getDirections": "Nawiguj"
+  },
+  "mobileBar": {
+    "call": "Zadzwoń",
+    "whatsapp": "WhatsApp",
+    "menu": "Menu"
+  },
+  "footer": {
+    "tagline": "Profesjonalne usuwanie wgnieceń bez lakierowania w Poznaniu.",
+    "services": "Usługi",
+    "company": "Firma",
+    "contact": "Kontakt",
+    "hours": "Godziny otwarcia",
+    "weekdays": "Poniedziałek – Piątek",
+    "saturday": "Sobota",
+    "sunday": "Niedziela",
+    "closed": "Zamknięte",
+    "map": "Mapa",
+    "rights": "Wszelkie prawa zastrzeżone.",
+    "follow": "Śledź nas"
+  },
+  "hero": {
+    "headline": "Profesjonalne usuwanie wgnieceń bez lakierowania",
+    "subheadline": "PDR i naprawa po gradobiciu w Poznaniu. Zachowujemy oryginalny lakier, wartość auta i Twój czas.",
+    "badge": "Hekomimoto · Poznań"
+  },
+  "trust": {
+    "title": "Dlaczego klienci nam ufają",
+    "years": {
+      "value": "10+",
+      "label": "lat doświadczenia"
+    },
+    "turnaround": {
+      "value": "24–72h",
+      "label": "typowy czas naprawy"
+    },
+    "quality": {
+      "value": "100%",
+      "label": "gwarancja jakości"
+    },
+    "mobile": {
+      "value": "Mobilnie",
+      "label": "dojazd do klienta"
+    }
+  },
+  "services": {
+    "title": "Nasze usługi",
+    "subtitle": "Kompleksowa naprawa wgnieceń metodą PDR — od drobnych stłuczek po intensywne gradobicie.",
+    "pdr": {
+      "title": "Usuwanie wgnieceń PDR",
+      "short": "Precyzyjne usuwanie wgnieceń bez lakierowania i szpachlowania.",
+      "description": "Paintless Dent Repair to nowoczesna metoda naprawy karoserii, która przywraca blachę do oryginalnego kształtu bez ingerencji w lakier. Idealna przy lokalnych wgnieceniach, gdy powłoka nie jest uszkodzona."
+    },
+    "hail": {
+      "title": "Naprawa po gradobiciu",
+      "short": "Skuteczna naprawa szkód gradowych z zachowaniem fabrycznego lakieru.",
+      "description": "Gradobicie potrafi zostawić setki wgnieceń. Dzięki PDR przywracamy powierzchnię dachu, maski i klap bez kosztownego lakierowania — często we współpracy z ubezpieczycielem."
+    },
+    "parking": {
+      "title": "Wgniecenia parkingowe",
+      "short": "Szybka naprawa drzwi, błotników i boków po manewrach parkingowych.",
+      "description": "Otwarte drzwi sąsiada, wózek sklepowy czy słupek — typowe wgniecenia parkingowe usuwamy sprawnie, często tego samego dnia, bez wizyty w blacharce."
+    },
+    "vandalism": {
+      "title": "Akty wandalizmu",
+      "short": "Przywracamy wygląd auta po celowych uszkodzeniach blachy.",
+      "description": "Wgniecenia po kopnięciach, uderzeniach czy celowym uszkodzeniu karoserii naprawiamy metodą PDR, o ile lakier pozostał nienaruszony."
+    },
+    "classic": {
+      "title": "Klasyczne samochody",
+      "short": "Delikatna praca na zabytkowych i kolekcjonerskich pojazdach.",
+      "description": "Przy klasycznych autach zachowanie oryginalnego lakieru ma ogromne znaczenie. PDR pozwala naprawić blachę bez utraty autentyczności i wartości kolekcjonerskiej."
+    },
+    "prep": {
+      "title": "Przygotowanie do lakierowania",
+      "short": "Wypchnięcie blachy przed lakierowaniem — lepszy efekt końcowy.",
+      "description": "Gdy lakier wymaga naprawy, PDR pomaga wypchnąć blachę i zminimalizować ilość szpachli przed lakierowaniem."
+    },
+    "mobile": {
+      "title": "Mobilne usługi PDR",
+      "short": "Przyjeżdżamy do Ciebie — dom, firma lub parking.",
+      "description": "Nie zawsze musisz zostawiać auto w warsztacie. Oferujemy mobilne usługi PDR na terenie Poznania i okolic."
+    },
+    "benefitsTitle": "Korzyści",
+    "processTitle": "Jak przebiega naprawa",
+    "relatedTitle": "Powiązane usługi"
+  },
+  "whyUs": {
+    "title": "Dlaczego Hekomimoto",
+    "subtitle": "Premium PDR — bez kompromisów w jakości i komunikacji.",
+    "items": {
+      "paint": {
+        "title": "Oryginalny lakier",
+        "text": "Nie szlifujemy i nie lakierujemy — zachowujesz fabryczną powłokę."
+      },
+      "fast": {
+        "title": "Szybka naprawa",
+        "text": "Większość zleceń realizujemy w ciągu 1–3 dni roboczych."
+      },
+      "cost": {
+        "title": "Niższy koszt",
+        "text": "PDR jest zwykle wyraźnie tańsze niż tradycyjna blacharnia."
+      },
+      "value": {
+        "title": "Wartość pojazdu",
+        "text": "Brak śladów naprawy lakierniczej wspiera wartość auta przy odsprzedaży."
+      }
+    }
+  },
+  "beforeAfter": {
+    "title": "Nasze realizacje",
+    "subtitle": "Wybrane prace z warsztatu Hekomimoto — pełna galeria na Instagramie i poniżej.",
+    "before": "Przed",
+    "after": "Po",
+    "drag": "Przeciągnij, aby porównać"
+  },
+  "process": {
+    "title": "Prosty proces",
+    "subtitle": "Od zdjęć do odbioru auta — bez zbędnych formalności.",
+    "steps": {
+      "1": {
+        "title": "Wyślij zdjęcia",
+        "text": "Zrób kilka zdjęć uszkodzeń smartfonem i prześlij je przez formularz lub WhatsApp."
+      },
+      "2": {
+        "title": "Otrzymaj wycenę",
+        "text": "Otrzymasz wstępną wycenę i termin — zwykle w ciągu kilku godzin."
+      },
+      "3": {
+        "title": "Naprawa",
+        "text": "Wykonujemy precyzyjną naprawę PDR w warsztacie lub mobilnie."
+      },
+      "4": {
+        "title": "Odbierz auto",
+        "text": "Odbierasz pojazd z przywróconą linią blachy i oryginalnym lakierem."
+      }
+    }
+  },
+  "testimonials": {
+    "title": "Opinie klientów",
+    "subtitle": "Zaufanie budujemy efektami — nie obietnicami.",
+    "items": {
+      "1": {
+        "name": "Marek K.",
+        "role": "Volkswagen Golf",
+        "text": "Po gradobiciu dach wyglądał dramatycznie. Po PDR u Hekomimoto — jak nowe. Szybko, czysto, bez lakierowania."
+      },
+      "2": {
+        "name": "Anna W.",
+        "role": "Toyota Corolla",
+        "text": "Wgniecenie na drzwiach po parkingu usunęli tego samego dnia. Wycena ze zdjęć była trafna. Polecam."
+      },
+      "3": {
+        "name": "Piotr S.",
+        "role": "BMW serii 3",
+        "text": "Profesjonalne podejście i świetna komunikacja. Auto wróciło bez śladu po wandalizmie na błotniku."
+      }
+    }
+  },
+  "faq": {
+    "title": "Najczęściej zadawane pytania",
+    "subtitle": "Krótko i konkretnie o metodzie PDR oraz współpracy z nami.",
+    "items": {
+      "1": {
+        "q": "Czym jest metoda PDR?",
+        "a": "PDR (Paintless Dent Repair) to technika usuwania wgnieceń poprzez precyzyjne wypychanie i masowanie blachy od spodu — bez szpachli i lakierowania, gdy lakier nie jest uszkodzony."
+      },
+      "2": {
+        "q": "Kiedy PDR nie wystarczy?",
+        "a": "Gdy lakier jest spękany, odpryśnięty lub blacha mocno rozciągnięta, może być potrzebna naprawa lakiernicza. Wówczas możemy przygotować element do lakierowania."
+      },
+      "3": {
+        "q": "Jak wygląda wycena ze zdjęć?",
+        "a": "Wystarczy kilka wyraźnych zdjęć uszkodzeń (z bliska i z dystansu). Przesyłasz je formularzem lub WhatsAppem — odpisujemy z wyceną i propozycją terminu."
+      },
+      "4": {
+        "q": "Ile trwa naprawa?",
+        "a": "Pojedyncze wgniecenie parkingowe często zajmuje godziny. Intensywne gradobicie może wymagać 1–3 dni. Dokładny czas podajemy przy wycenie."
+      },
+      "5": {
+        "q": "Czy pracujecie z ubezpieczalniami?",
+        "a": "Tak — pomagamy w procesie zgłoszenia szkody gradowej i przygotowujemy dokumentację potrzebną ubezpieczycielowi."
+      },
+      "6": {
+        "q": "Czy oferujecie dojazd?",
+        "a": "Tak, świadczymy mobilne usługi PDR na terenie Poznania i okolic — szczegóły ustalimy przy wycenie."
+      }
+    }
+  },
+  "finalCta": {
+    "title": "Gotowy na darmową wycenę?",
+    "subtitle": "Wyślij zdjęcia uszkodzeń — odpiszemy zwykle tego samego dnia. Albo zadzwoń i umów termin.",
+    "emergency": "Pilna sprawa? Zadzwoń teraz — jesteśmy dostępni w godzinach otwarcia."
+  },
+  "galleryPage": {
+    "title": "Galeria realizacji",
+    "subtitle": "Efekty napraw PDR — filtruj według kategorii i porównuj przed/po.",
+    "all": "Wszystkie",
+    "filters": {
+      "hail": "Gradobicie",
+      "parking": "Parking",
+      "vandalism": "Wandalizm",
+      "classic": "Klasyki"
+    },
+    "lightboxClose": "Zamknij",
+    "empty": "Brak realizacji w tej kategorii."
+  },
+  "aboutPage": {
+    "title": "O Hekomimoto",
+    "subtitle": "Specjaliści od usuwania wgnieceń w Poznaniu — precyzja, transparentność, efekt premium.",
+    "storyTitle": "Nasza historia",
+    "story": "Hekomimoto powstało z pasji do perfekcyjnej blachy i nowoczesnych metod naprawy. Specjalizujemy się w Paintless Dent Repair — technice, która chroni oryginalny lakier i wartość pojazdu. Pracujemy dla klientów indywidualnych, flot i po szkodach gradowych.",
+    "missionTitle": "Misja",
+    "mission": "Dostarczać naprawy PDR na poziomie dealerskim: jasna wycena, terminowość i efekt, którego nie trzeba tłumaczyć — widać go od razu.",
+    "workshopTitle": "Warsztat",
+    "workshop": "Nasza siedziba przy ul. Obornickiej 344 w Poznaniu jest przygotowana do precyzyjnych napraw PDR. Na życzenie dojeżdżamy też do klienta.",
+    "teamTitle": "Zespół",
+    "teamNote": "Zdjęcia zespołu — miejsce na materiały klienta."
+  },
+  "contactPage": {
+    "title": "Kontakt",
+    "subtitle": "Napisz, zadzwoń lub wyślij zdjęcia — odpowiadamy szybko.",
+    "formTitle": "Formularz kontaktowy",
+    "phoneTitle": "Telefon",
+    "emailTitle": "E-mail",
+    "addressTitle": "Adres",
+    "hoursTitle": "Godziny otwarcia",
+    "mapTitle": "Jak dojechać",
+    "emergencyTitle": "Pilna wycena",
+    "emergencyText": "Po gradobiciu lub dużym uszkodzeniu — wyślij zdjęcia od razu albo zadzwoń. Priorytetowo obsługujemy pilne zgłoszenia."
+  },
+  "form": {
+    "name": "Imię i nazwisko",
+    "phone": "Telefon",
+    "email": "E-mail (opcjonalnie)",
+    "message": "Wiadomość",
+    "messagePlaceholder": "Opisz uszkodzenie, markę i model auta…",
+    "photos": "Zdjęcia uszkodzeń",
+    "photosHint": "Do 6 zdjęć, max 5 MB każde. Z telefonu możesz zrobić zdjęcie od razu.",
+    "photosRequired": "Dodaj co najmniej jedno zdjęcie.",
+    "addPhotos": "Dodaj zdjęcia",
+    "removePhoto": "Usuń",
+    "submit": "Wyślij zgłoszenie",
+    "sending": "Wysyłanie…",
+    "success": "Dziękujemy! Odezwiemy się wkrótce.",
+    "error": "Nie udało się wysłać. Spróbuj ponownie lub zadzwoń.",
+    "required": "To pole jest wymagane.",
+    "invalidPhone": "Podaj prawidłowy numer telefonu.",
+    "privacy": "Wysyłając formularz, zgadzasz się na kontakt w sprawie wyceny."
+  },
+  "quoteWidget": {
+    "title": "Wyślij zdjęcia do wyceny",
+    "subtitle": "Bezpłatna wstępna wycena — zwykle odpowiadamy tego samego dnia.",
+    "open": "Wycena ze zdjęć",
+    "close": "Zamknij"
+  },
+  "servicePages": {
+    "ctaTitle": "Chcesz wycenę tej usługi?",
+    "ctaSubtitle": "Wyślij zdjęcia lub zadzwoń — doradzimy najlepsze rozwiązanie."
+  }
+}

@@ -1,0 +1,327 @@
+{
+  "meta": {
+    "home": {
+      "title": "Hekomimoto | Professional Paintless Dent Repair Poznań",
+      "description": "Paintless dent repair (PDR), hail damage and parking dents in Poznań. Free photo quote. Call: +48 601 416 332."
+    },
+    "gallery": {
+      "title": "Before & After Gallery | Hekomimoto PDR Poznań",
+      "description": "See PDR repair results — hail, parking and vandalism. Hekomimoto workmanship in Poznań."
+    },
+    "about": {
+      "title": "About Us | Hekomimoto — PDR experts in Poznań",
+      "description": "Meet the Hekomimoto team. We specialise in paintless dent repair and hail damage restoration."
+    },
+    "faq": {
+      "title": "FAQ | Frequently asked questions — Hekomimoto",
+      "description": "Answers about PDR, quoting, repair time and Hekomimoto quality guarantee."
+    },
+    "contact": {
+      "title": "Contact | Hekomimoto Poznań — free quote",
+      "description": "Contact Hekomimoto. Ul. Obornicka 344, Poznań. Phone: +48 601 416 332. Send photos for a quote."
+    },
+    "services": {
+      "pdr": {
+        "title": "Paintless Dent Repair (PDR) | Hekomimoto Poznań",
+        "description": "Professional paintless dent repair. No respray — original factory paint preserved."
+      },
+      "hail": {
+        "title": "Hail Damage Repair | Hekomimoto Poznań",
+        "description": "Complete hail damage repair with PDR. Fast quotes, mobile service, quality guarantee."
+      },
+      "parking": {
+        "title": "Parking Dent Repair | Hekomimoto Poznań",
+        "description": "Remove parking dents without painting. Fast repair for doors, fenders and panels."
+      },
+      "vandalism": {
+        "title": "Vandalism Dent Repair | Hekomimoto Poznań",
+        "description": "Remove vandalism dents with PDR. Restore your car’s appearance without a respray."
+      },
+      "mobile": {
+        "title": "Mobile PDR Service | Hekomimoto Poznań",
+        "description": "Mobile paintless dent repair — we come to you across Poznań and nearby."
+      }
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "gallery": "Gallery",
+    "about": "About",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "freeQuote": "Free quote",
+    "callNow": "Call",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "language": "Language"
+  },
+  "cta": {
+    "sendPhotos": "Send photos for a quote",
+    "callNow": "Call now",
+    "whatsapp": "WhatsApp",
+    "freeQuote": "Free quote",
+    "learnMore": "Learn more",
+    "viewGallery": "View gallery",
+    "contactUs": "Contact us",
+    "getDirections": "Directions"
+  },
+  "mobileBar": {
+    "call": "Call",
+    "whatsapp": "WhatsApp",
+    "menu": "Menu"
+  },
+  "footer": {
+    "tagline": "Professional paintless dent repair in Poznań.",
+    "services": "Services",
+    "company": "Company",
+    "contact": "Contact",
+    "hours": "Business hours",
+    "weekdays": "Monday – Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday",
+    "closed": "Closed",
+    "map": "Map",
+    "rights": "All rights reserved.",
+    "follow": "Follow us"
+  },
+  "hero": {
+    "headline": "Professional paintless dent repair",
+    "subheadline": "PDR and hail damage repair in Poznań. We preserve original paint, vehicle value and your time.",
+    "badge": "Hekomimoto · Poznań"
+  },
+  "trust": {
+    "title": "Why customers trust us",
+    "years": {
+      "value": "10+",
+      "label": "years of experience"
+    },
+    "turnaround": {
+      "value": "24–72h",
+      "label": "typical turnaround"
+    },
+    "quality": {
+      "value": "100%",
+      "label": "quality guarantee"
+    },
+    "mobile": {
+      "value": "Mobile",
+      "label": "we come to you"
+    }
+  },
+  "services": {
+    "title": "Our services",
+    "subtitle": "Complete PDR dent repair — from minor parking dings to heavy hail.",
+    "pdr": {
+      "title": "Paintless dent repair",
+      "short": "Precise dent removal without painting or body filler.",
+      "description": "Paintless Dent Repair restores metal to its original shape without disturbing the paint — ideal for local dents when the finish is intact."
+    },
+    "hail": {
+      "title": "Hail damage repair",
+      "short": "Effective hail repair while keeping factory paint.",
+      "description": "Hail can leave hundreds of dents. With PDR we restore roofs, hoods and panels without costly resprays — often with insurer coordination."
+    },
+    "parking": {
+      "title": "Parking dents",
+      "short": "Fast repair for doors, fenders and sides after parking mishaps.",
+      "description": "Neighbour’s door, shopping cart or bollard — typical parking dents are often fixed the same day, without a body shop visit."
+    },
+    "vandalism": {
+      "title": "Vandalism damage",
+      "short": "Restore appearance after intentional body damage.",
+      "description": "Dents from kicks or deliberate impacts can be repaired with PDR when the paint remains unbroken."
+    },
+    "classic": {
+      "title": "Classic cars",
+      "short": "Careful work on vintage and collector vehicles.",
+      "description": "On classics, original paint matters. PDR repairs metal without losing authenticity or collector value."
+    },
+    "prep": {
+      "title": "Prep for painting",
+      "short": "Metal push-out before paint — better final results.",
+      "description": "When paint must be repaired, PDR helps push metal out and reduce filler before spraying."
+    },
+    "mobile": {
+      "title": "Mobile PDR",
+      "short": "We come to you — home, office or parking lot.",
+      "description": "You don’t always need to leave the car at the workshop. We offer mobile PDR across Poznań and nearby."
+    },
+    "benefitsTitle": "Benefits",
+    "processTitle": "How the repair works",
+    "relatedTitle": "Related services"
+  },
+  "whyUs": {
+    "title": "Why Hekomimoto",
+    "subtitle": "Premium PDR — no compromise on quality or communication.",
+    "items": {
+      "paint": {
+        "title": "Original paint",
+        "text": "No sanding or spraying — you keep the factory finish."
+      },
+      "fast": {
+        "title": "Fast repairs",
+        "text": "Most jobs are completed within 1–3 business days."
+      },
+      "cost": {
+        "title": "Lower cost",
+        "text": "PDR is usually significantly cheaper than traditional bodywork."
+      },
+      "value": {
+        "title": "Vehicle value",
+        "text": "No paint-shop footprint helps retain resale value."
+      }
+    }
+  },
+  "beforeAfter": {
+    "title": "Our work",
+    "subtitle": "Selected repairs from the Hekomimoto workshop — see the full gallery below and on Instagram.",
+    "before": "Before",
+    "after": "After",
+    "drag": "Drag to compare"
+  },
+  "process": {
+    "title": "Simple process",
+    "subtitle": "From photos to pickup — no unnecessary paperwork.",
+    "steps": {
+      "1": {
+        "title": "Send photos",
+        "text": "Take a few damage photos on your phone and send them via the form or WhatsApp."
+      },
+      "2": {
+        "title": "Receive a quote",
+        "text": "You’ll get an estimate and timing — usually within a few hours."
+      },
+      "3": {
+        "title": "Repair",
+        "text": "We perform precise PDR at the workshop or on-site."
+      },
+      "4": {
+        "title": "Collect your car",
+        "text": "Pick up your vehicle with restored panel lines and original paint."
+      }
+    }
+  },
+  "testimonials": {
+    "title": "Customer reviews",
+    "subtitle": "Trust built on results — not promises.",
+    "items": {
+      "1": {
+        "name": "Marek K.",
+        "role": "Volkswagen Golf",
+        "text": "After hail the roof looked dramatic. After PDR at Hekomimoto — like new. Fast, clean, no respray."
+      },
+      "2": {
+        "name": "Anna W.",
+        "role": "Toyota Corolla",
+        "text": "Parking door ding removed the same day. Photo quote was accurate. Highly recommend."
+      },
+      "3": {
+        "name": "Piotr S.",
+        "role": "BMW 3 Series",
+        "text": "Professional approach and great communication. Car came back with no trace of the fender vandalism."
+      }
+    }
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "subtitle": "Straight answers about PDR and working with us.",
+    "items": {
+      "1": {
+        "q": "What is PDR?",
+        "a": "PDR (Paintless Dent Repair) removes dents by carefully massaging metal from behind — without filler or paint when the finish is undamaged."
+      },
+      "2": {
+        "q": "When is PDR not enough?",
+        "a": "If paint is cracked or chipped, or metal is severely stretched, conventional bodywork may be needed. We can still prep panels for painting."
+      },
+      "3": {
+        "q": "How does a photo quote work?",
+        "a": "Send a few clear photos (close-up and wider shots) via the form or WhatsApp. We reply with an estimate and proposed slot."
+      },
+      "4": {
+        "q": "How long does a repair take?",
+        "a": "A single parking dent often takes hours. Heavy hail may need 1–3 days. We confirm timing with your quote."
+      },
+      "5": {
+        "q": "Do you work with insurers?",
+        "a": "Yes — we help with hail claims and provide documentation insurers typically require."
+      },
+      "6": {
+        "q": "Do you offer mobile service?",
+        "a": "Yes — mobile PDR across Poznań and surrounding areas. Details are confirmed with your quote."
+      }
+    }
+  },
+  "finalCta": {
+    "title": "Ready for a free quote?",
+    "subtitle": "Send damage photos — we usually reply the same day. Or call to book a slot.",
+    "emergency": "Urgent? Call now — we’re available during business hours."
+  },
+  "galleryPage": {
+    "title": "Work gallery",
+    "subtitle": "PDR results — filter by category and compare before/after.",
+    "all": "All",
+    "filters": {
+      "hail": "Hail",
+      "parking": "Parking",
+      "vandalism": "Vandalism",
+      "classic": "Classics"
+    },
+    "lightboxClose": "Close",
+    "empty": "No projects in this category."
+  },
+  "aboutPage": {
+    "title": "About Hekomimoto",
+    "subtitle": "Dent repair specialists in Poznań — precision, clarity, premium finish.",
+    "storyTitle": "Our story",
+    "story": "Hekomimoto was built on a passion for perfect panels and modern repair methods. We specialise in Paintless Dent Repair — protecting original paint and vehicle value. We work with private clients, fleets and hail claims.",
+    "missionTitle": "Mission",
+    "mission": "Deliver dealer-level PDR: clear quotes, on-time delivery and results that speak for themselves.",
+    "workshopTitle": "Workshop",
+    "workshop": "Our base at Ul. Obornicka 344 in Poznań is set up for precise PDR. We also travel to clients on request.",
+    "teamTitle": "Team",
+    "teamNote": "Team photos — placeholder for client assets."
+  },
+  "contactPage": {
+    "title": "Contact",
+    "subtitle": "Write, call or send photos — we reply quickly.",
+    "formTitle": "Contact form",
+    "phoneTitle": "Phone",
+    "emailTitle": "Email",
+    "addressTitle": "Address",
+    "hoursTitle": "Business hours",
+    "mapTitle": "How to find us",
+    "emergencyTitle": "Urgent quote",
+    "emergencyText": "After hail or major damage — send photos immediately or call. We prioritise urgent requests."
+  },
+  "form": {
+    "name": "Full name",
+    "phone": "Phone",
+    "email": "Email (optional)",
+    "message": "Message",
+    "messagePlaceholder": "Describe the damage, make and model…",
+    "photos": "Damage photos",
+    "photosHint": "Up to 6 photos, 5 MB each. On mobile you can take photos right away.",
+    "photosRequired": "Please add at least one photo.",
+    "addPhotos": "Add photos",
+    "removePhoto": "Remove",
+    "submit": "Send request",
+    "sending": "Sending…",
+    "success": "Thank you! We’ll be in touch soon.",
+    "error": "Could not send. Please try again or call us.",
+    "required": "This field is required.",
+    "invalidPhone": "Enter a valid phone number.",
+    "privacy": "By submitting, you agree to be contacted about your quote."
+  },
+  "quoteWidget": {
+    "title": "Send photos for a quote",
+    "subtitle": "Free preliminary estimate — we usually reply the same day.",
+    "open": "Photo quote",
+    "close": "Close"
+  },
+  "servicePages": {
+    "ctaTitle": "Want a quote for this service?",
+    "ctaSubtitle": "Send photos or call — we’ll recommend the best approach."
+  }
+}
