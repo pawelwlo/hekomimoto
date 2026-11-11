@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
     root: process.cwd(),
   },
   images: {
+    // Firebase App Hosting supports Next image optimization when explicitly enabled
+    unoptimized: false,
     remotePatterns: [
       {
         protocol: "https",

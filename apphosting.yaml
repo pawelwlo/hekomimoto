@@ -1,0 +1,58 @@
+# Firebase App Hosting configuration
+# https://firebase.google.com/docs/app-hosting/configure
+
+runConfig:
+  runtime: nodejs22
+  concurrency: 80
+  cpu: 1
+  memoryMiB: 512
+  minInstances: 0
+  maxInstances: 10
+
+env:
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    value: AIzaSyC6EtCf7BPP7NqbE7-K7XKj7OvPkz8iBfg
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: hekomimoto.firebaseapp.com
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: hekomimoto
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+    value: hekomimoto.firebasestorage.app
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+    value: "461957512963"
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: NEXT_PUBLIC_FIREBASE_APP_ID
+    value: 1:461957512963:web:a00d2bf51d00ed0948f336
+    availability:
+      - BUILD
+      - RUNTIME
+  - variable: NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+    value: G-5BX1SSX752
+    availability:
+      - BUILD
+      - RUNTIME
+
+# After creating secrets with:
+#   firebase apphosting:secrets:set RESEND_API_KEY --project hekomimoto
+#   firebase apphosting:secrets:set RESEND_FROM --project hekomimoto
+# add:
+#   - variable: RESEND_API_KEY
+#     secret: RESEND_API_KEY
+#     availability: [RUNTIME]
+#   - variable: RESEND_FROM
+#     secret: RESEND_FROM
+#     availability: [RUNTIME]
