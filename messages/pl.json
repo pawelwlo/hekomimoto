@@ -71,6 +71,12 @@
     "whatsapp": "WhatsApp",
     "menu": "Menu"
   },
+  "cookies": {
+    "title": "Pliki cookies",
+    "description": "Używamy plików cookies, aby strona działała poprawnie oraz — za Twoją zgodą — do analizy ruchu (Firebase Analytics). Możesz zaakceptować lub odrzucić cookies analityczne.",
+    "accept": "Akceptuję",
+    "decline": "Odrzuć"
+  },
   "footer": {
     "tagline": "Profesjonalne usuwanie wgnieceń bez lakierowania w Poznaniu.",
     "services": "Usługi",

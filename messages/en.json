@@ -71,6 +71,12 @@
     "whatsapp": "WhatsApp",
     "menu": "Menu"
   },
+  "cookies": {
+    "title": "Cookie notice",
+    "description": "We use cookies to keep the site working and — with your permission — to measure traffic (Firebase Analytics). You can accept or decline analytics cookies.",
+    "accept": "Accept",
+    "decline": "Decline"
+  },
   "footer": {
     "tagline": "Professional paintless dent repair in Poznań.",
     "services": "Services",

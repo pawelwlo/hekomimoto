@@ -9,6 +9,7 @@ import { Footer } from "@/components/layout/Footer";
 import { MobileStickyBar } from "@/components/layout/MobileStickyBar";
 import { FloatingQuoteWidget } from "@/components/shared/FloatingQuoteWidget";
 import { FirebaseAnalytics } from "@/components/providers/FirebaseAnalytics";
+import { CookieConsent } from "@/components/shared/CookieConsent";
 import { localBusinessJsonLd } from "@/lib/schema";
 import { siteConfig } from "@/content/site";
 import "../globals.css";
@@ -65,6 +66,7 @@ export default async function LocaleLayout({
             <Footer />
             <MobileStickyBar />
             <FloatingQuoteWidget />
+            <CookieConsent />
             <FirebaseAnalytics />
             <div className="sr-only" aria-hidden>
               {siteConfig.phone} · {siteConfig.email}
