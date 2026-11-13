@@ -26,6 +26,11 @@ export function buildPageMetadata({
     metadataBase: new URL(siteConfig.url),
     title: meta.title,
     description: meta.description,
+    icons: {
+      icon: [{ url: "/ikona-3.png", type: "image/png" }],
+      apple: [{ url: "/ikona-3.png", type: "image/png" }],
+      shortcut: ["/ikona-3.png"],
+    },
     alternates: {
       canonical: url,
       languages: {
