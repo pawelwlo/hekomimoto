@@ -266,7 +266,7 @@
   },
   "galleryPage": {
     "title": "Work gallery",
-    "subtitle": "PDR results — filter by category and compare before/after.",
+    "subtitle": "PDR results from the Hekomimoto workshop — photos from the media library.",
     "all": "All",
     "filters": {
       "hail": "Hail",
@@ -275,7 +275,7 @@
       "classic": "Classics"
     },
     "lightboxClose": "Close",
-    "empty": "No projects in this category."
+    "empty": "No projects to display."
   },
   "aboutPage": {
     "title": "About Hekomimoto",

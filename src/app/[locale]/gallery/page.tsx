@@ -3,6 +3,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GalleryGrid } from "@/components/shared/GalleryGrid";
 import { CTASection } from "@/components/shared/CTASection";
 import { buildPageMetadata } from "@/lib/seo";
+import { fetchWpGalleryItems } from "@/lib/wordpress";
 import type { Locale } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -27,13 +28,14 @@ export default async function GalleryPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("galleryPage");
+  const items = await fetchWpGalleryItems();
 
   return (
     <>
       <section className="border-b border-white/5 bg-surface py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4 md:px-6">
           <SectionHeading title={t("title")} subtitle={t("subtitle")} />
-          <GalleryGrid />
+          <GalleryGrid items={items} />
         </div>
       </section>
       <CTASection />

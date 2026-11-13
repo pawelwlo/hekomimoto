@@ -266,7 +266,7 @@
   },
   "galleryPage": {
     "title": "Galeria realizacji",
-    "subtitle": "Efekty napraw PDR — filtruj według kategorii i porównuj przed/po.",
+    "subtitle": "Efekty napraw PDR z warsztatu Hekomimoto — zdjęcia z biblioteki mediów.",
     "all": "Wszystkie",
     "filters": {
       "hail": "Gradobicie",
@@ -275,7 +275,7 @@
       "classic": "Klasyki"
     },
     "lightboxClose": "Zamknij",
-    "empty": "Brak realizacji w tej kategorii."
+    "empty": "Brak realizacji do wyświetlenia."
   },
   "aboutPage": {
     "title": "O Hekomimoto",

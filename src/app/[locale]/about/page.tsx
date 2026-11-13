@@ -3,8 +3,9 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { CTASection } from "@/components/shared/CTASection";
-import { workshopImage } from "@/content/gallery";
+import { workshopImageFallback } from "@/content/gallery";
 import { buildPageMetadata } from "@/lib/seo";
+import { fetchWpGalleryItems } from "@/lib/wordpress";
 import type { Locale } from "@/i18n/routing";
 
 export async function generateMetadata({
@@ -29,6 +30,8 @@ export default async function AboutPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("aboutPage");
+  const galleryItems = await fetchWpGalleryItems();
+  const workshop = galleryItems[0];
 
   return (
     <>
@@ -61,11 +64,10 @@ export default async function AboutPage({
               </GlassPanel>
             </div>
             <div>
-              {/* CLIENT: replace workshopImage with real workshop photo */}
               <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10">
                 <Image
-                  src={workshopImage}
-                  alt=""
+                  src={workshop?.src ?? workshopImageFallback}
+                  alt={workshop?.alt ?? ""}
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"

@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { galleryItems } from "@/content/gallery";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Link } from "@/i18n/navigation";
+import { fetchWpGalleryItems } from "@/lib/wordpress";
 
 export async function BeforeAfterSection() {
   const t = await getTranslations("beforeAfter");
   const tCta = await getTranslations("cta");
+  const galleryItems = await fetchWpGalleryItems();
   const featured = galleryItems.slice(0, 4);
 
   return (
@@ -21,7 +22,7 @@ export async function BeforeAfterSection() {
             >
               <Image
                 src={item.src}
-                alt=""
+                alt={item.alt}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 50vw, 25vw"

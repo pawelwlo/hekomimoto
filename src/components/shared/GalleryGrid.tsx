@@ -5,7 +5,6 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { X } from "lucide-react";
 import {
-  galleryItems,
   type GalleryCategory,
   type GalleryItem,
 } from "@/content/gallery";
@@ -24,38 +23,46 @@ function hasPair(item: GalleryItem) {
   return Boolean(item.beforeSrc && item.afterSrc);
 }
 
-export function GalleryGrid() {
+type GalleryGridProps = {
+  items: GalleryItem[];
+};
+
+export function GalleryGrid({ items: allItems }: GalleryGridProps) {
   const t = useTranslations("galleryPage");
   const [filter, setFilter] = useState<GalleryCategory | "all">("all");
   const [active, setActive] = useState<GalleryItem | null>(null);
 
-  const items = useMemo(
-    () =>
-      filter === "all"
-        ? galleryItems
-        : galleryItems.filter((i) => i.category === filter),
-    [filter],
+  const hasCategories = useMemo(
+    () => allItems.some((item) => Boolean(item.category)),
+    [allItems],
   );
+
+  const items = useMemo(() => {
+    if (!hasCategories || filter === "all") return allItems;
+    return allItems.filter((i) => i.category === filter);
+  }, [allItems, filter, hasCategories]);
 
   return (
     <div>
-      <div className="mb-8 flex flex-wrap justify-center gap-2">
-        {filters.map((f) => (
-          <button
-            key={f}
-            type="button"
-            onClick={() => setFilter(f)}
-            className={cn(
-              "rounded-lg px-4 py-2 text-sm font-medium transition-colors",
-              filter === f
-                ? "bg-accent text-white"
-                : "border border-white/10 text-muted hover:text-white",
-            )}
-          >
-            {f === "all" ? t("all") : t(`filters.${f}`)}
-          </button>
-        ))}
-      </div>
+      {hasCategories ? (
+        <div className="mb-8 flex flex-wrap justify-center gap-2">
+          {filters.map((f) => (
+            <button
+              key={f}
+              type="button"
+              onClick={() => setFilter(f)}
+              className={cn(
+                "rounded-lg px-4 py-2 text-sm font-medium transition-colors",
+                filter === f
+                  ? "bg-accent text-white"
+                  : "border border-white/10 text-muted hover:text-white",
+              )}
+            >
+              {f === "all" ? t("all") : t(`filters.${f}`)}
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       {items.length === 0 ? (
         <p className="text-center text-muted">{t("empty")}</p>
@@ -76,7 +83,7 @@ export function GalleryGrid() {
               >
                 <Image
                   src={item.src}
-                  alt=""
+                  alt={item.alt}
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -115,8 +122,8 @@ export function GalleryGrid() {
             ) : (
               <div className="relative aspect-[4/5] w-full overflow-hidden rounded-2xl border border-white/10 sm:aspect-[4/3]">
                 <Image
-                  src={active.src}
-                  alt=""
+                  src={active.fullSrc ?? active.src}
+                  alt={active.alt}
                   fill
                   className="object-contain bg-black"
                   sizes="100vw"

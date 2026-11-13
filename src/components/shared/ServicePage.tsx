@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CTASection } from "@/components/shared/CTASection";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import Image from "next/image";
-import { galleryItems } from "@/content/gallery";
+import { fetchWpGalleryItems } from "@/lib/wordpress";
 import type { ServiceKey } from "@/types";
 
 const benefitKeys = ["paint", "fast", "cost", "value"] as const;
@@ -18,6 +18,7 @@ export async function ServicePageContent({ serviceKey }: ServicePageProps) {
   const tWhy = await getTranslations("whyUs");
   const tProcess = await getTranslations("process");
   const tPages = await getTranslations("servicePages");
+  const galleryItems = await fetchWpGalleryItems();
   const sample = galleryItems[0];
 
   return (
@@ -61,15 +62,17 @@ export async function ServicePageContent({ serviceKey }: ServicePageProps) {
               ))}
             </ul>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10">
-            <Image
-              src={sample.src}
-              alt=""
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-            />
-          </div>
+          {sample ? (
+            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10">
+              <Image
+                src={sample.src}
+                alt={sample.alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </div>
+          ) : null}
         </div>
       </section>
 
