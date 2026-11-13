@@ -48,7 +48,7 @@ export function GalleryGrid() {
             className={cn(
               "rounded-lg px-4 py-2 text-sm font-medium transition-colors",
               filter === f
-                ? "bg-accent text-black"
+                ? "bg-accent text-white"
                 : "border border-white/10 text-muted hover:text-white",
             )}
           >

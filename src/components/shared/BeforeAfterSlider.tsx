@@ -88,7 +88,7 @@ export function BeforeAfterSlider({
       <span className="absolute left-3 top-3 rounded-md bg-black/60 px-2 py-1 text-xs font-semibold uppercase tracking-wide text-white">
         {t("before")}
       </span>
-      <span className="absolute right-3 top-3 rounded-md bg-accent px-2 py-1 text-xs font-semibold uppercase tracking-wide text-black">
+      <span className="absolute right-3 top-3 rounded-md bg-accent px-2 py-1 text-xs font-semibold uppercase tracking-wide text-white">
         {t("after")}
       </span>
     </div>

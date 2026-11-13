@@ -16,7 +16,7 @@ export function FloatingQuoteWidget() {
         <button
           type="button"
           onClick={open}
-          className="fixed bottom-20 right-4 z-40 inline-flex items-center gap-2 rounded-full bg-accent px-4 py-3 text-sm font-semibold text-black shadow-lg shadow-orange-500/20 transition hover:bg-accent-hover md:bottom-6 md:right-6"
+          className="fixed bottom-20 right-4 z-40 inline-flex items-center gap-2 rounded-full bg-accent px-4 py-3 text-sm font-semibold text-white shadow-lg shadow-red-600/25 transition hover:bg-accent-hover md:bottom-6 md:right-6"
         >
           <Camera className="h-4 w-4" />
           <span className="hidden sm:inline">{t("open")}</span>

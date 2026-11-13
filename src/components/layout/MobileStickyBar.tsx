@@ -34,7 +34,9 @@ export function MobileStickyBar() {
         aria-label={t("menu")}
       >
         <div className="mb-3 flex items-center justify-between">
-          <p className="font-display text-lg font-bold">Hekomimoto</p>
+          <p className="font-logo text-lg">
+            Hekomi<span className="text-accent">moto</span>
+          </p>
           <button
             type="button"
             onClick={() => setMenuOpen(false)}
@@ -57,7 +59,7 @@ export function MobileStickyBar() {
           ))}
           <button
             type="button"
-            className="mt-2 rounded-lg bg-accent px-3 py-3 text-sm font-semibold text-black"
+            className="mt-2 rounded-lg bg-accent px-3 py-3 text-sm font-semibold text-white"
             onClick={() => {
               setMenuOpen(false);
               open();

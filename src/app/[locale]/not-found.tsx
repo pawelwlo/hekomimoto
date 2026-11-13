@@ -9,7 +9,7 @@ export default function NotFound() {
       </h1>
       <Link
         href="/"
-        className="mt-8 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-black"
+        className="mt-8 rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-white"
       >
         Hekomimoto
       </Link>

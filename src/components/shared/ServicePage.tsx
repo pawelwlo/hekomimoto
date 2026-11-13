@@ -23,7 +23,7 @@ export async function ServicePageContent({ serviceKey }: ServicePageProps) {
   return (
     <>
       <section className="relative overflow-hidden border-b border-white/5 bg-surface py-16 md:py-24">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(249,115,22,0.12),transparent_50%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(227,38,42,0.12),transparent_50%)]" />
         <div className="relative mx-auto max-w-7xl px-4 md:px-6">
           <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-accent">
             Hekomimoto

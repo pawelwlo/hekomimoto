@@ -1,7 +1,8 @@
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
-import { Syne, Outfit } from "next/font/google";
+import localFont from "next/font/local";
+import { Outfit, Montserrat } from "next/font/google";
 import { routing } from "@/i18n/routing";
 import { QuoteWidgetProvider } from "@/components/providers/QuoteWidgetProvider";
 import { Navbar } from "@/components/layout/Navbar";
@@ -14,15 +15,25 @@ import { localBusinessJsonLd } from "@/lib/schema";
 import { siteConfig } from "@/content/site";
 import "../globals.css";
 
-const syne = Syne({
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-syne",
+/** Usuzi italic (Isuzu-style) — Iconian Fonts; commercial use requires $20 license */
+const usuzi = localFont({
+  src: [
+    { path: "../../fonts/usuziital.ttf", weight: "400", style: "italic" },
+    { path: "../../fonts/usuziboldital.ttf", weight: "700", style: "italic" },
+  ],
+  variable: "--font-usuzi",
   display: "swap",
 });
 
 const outfit = Outfit({
   subsets: ["latin", "latin-ext"],
   variable: "--font-outfit",
+  display: "swap",
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-montserrat",
   display: "swap",
 });
 
@@ -46,7 +57,10 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${syne.variable} ${outfit.variable}`}>
+    <html
+      lang={locale}
+      className={`${usuzi.variable} ${outfit.variable} ${montserrat.variable}`}
+    >
       <head>
         <script
           type="application/ld+json"

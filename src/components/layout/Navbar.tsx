@@ -22,7 +22,7 @@ export function Navbar() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 md:h-20 md:px-6">
         <Link
           href="/"
-          className="font-display text-xl font-bold tracking-tight text-white md:text-2xl"
+          className="font-logo text-xl text-white md:text-2xl"
         >
           Hekomi<span className="text-accent">moto</span>
         </Link>

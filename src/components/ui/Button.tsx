@@ -8,7 +8,7 @@ type Size = "sm" | "md" | "lg";
 
 const variants: Record<Variant, string> = {
   primary:
-    "bg-accent text-black hover:bg-accent-hover shadow-[0_0_0_1px_rgba(249,115,22,0.35)]",
+    "bg-accent text-white hover:bg-accent-hover shadow-[0_0_0_1px_rgba(227,38,42,0.4)]",
   secondary:
     "bg-white text-black hover:bg-neutral-200",
   ghost:

@@ -16,7 +16,7 @@ export async function Footer() {
     <footer className="border-t border-white/5 bg-surface">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-2 md:px-6 lg:grid-cols-4">
         <div>
-          <p className="font-display text-2xl font-bold text-white">
+          <p className="font-logo text-2xl text-white">
             Hekomi<span className="text-accent">moto</span>
           </p>
           <p className="mt-3 text-sm text-muted">{t("tagline")}</p>

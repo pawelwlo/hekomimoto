@@ -27,7 +27,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
           className={cn(
             "rounded-md px-2.5 py-1.5 uppercase transition-colors",
             locale === l
-              ? "bg-accent text-black"
+              ? "bg-accent text-white"
               : "text-muted hover:text-white",
           )}
           aria-pressed={locale === l}

@@ -19,7 +19,7 @@ export function CTASection({ title, subtitle }: CTASectionProps) {
 
   return (
     <section className="relative overflow-hidden py-16 md:py-24">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(249,115,22,0.15),transparent_60%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(227,38,42,0.14),transparent_60%)]" />
       <div className="relative mx-auto max-w-4xl px-4 text-center md:px-6">
         <SectionHeading title={title ?? t("title")} subtitle={subtitle ?? t("subtitle")} />
         <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
