@@ -149,8 +149,20 @@ export async function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/5 py-6 text-center text-xs text-muted">
-        © {year} {siteConfig.name}. {t("rights")}
+      <div className="border-t border-white/5 px-4 py-6 text-center text-xs text-muted md:px-6">
+        <p>
+          © {year} {siteConfig.name}. {t("rights")}
+        </p>
+        <p className="mt-2">
+          <a
+            href="https://pwlo.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted/70 transition-colors hover:text-accent"
+          >
+            created by pwlo.dev
+          </a>
+        </p>
       </div>
     </footer>
   );

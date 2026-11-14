@@ -1,13 +1,12 @@
 import { getTranslations } from "next-intl/server";
-import { CloudHail, MapPinned, ParkingSquare, ShieldAlert } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ServiceCard } from "@/components/shared/ServiceCard";
 
 const cards = [
-  { href: "/services/hail", key: "hail", icon: CloudHail },
-  { href: "/services/parking-dents", key: "parking", icon: ParkingSquare },
-  { href: "/services/vandalism", key: "vandalism", icon: ShieldAlert },
-  { href: "/services/mobile", key: "mobile", icon: MapPinned },
+  { href: "/services/hail", key: "hail" },
+  { href: "/services/parking-dents", key: "parking" },
+  { href: "/services/vandalism", key: "vandalism" },
+  { href: "/services/mobile", key: "mobile" },
 ] as const;
 
 export async function ServicesSection() {
@@ -19,14 +18,13 @@ export async function ServicesSection() {
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <SectionHeading title={t("title")} subtitle={t("subtitle")} />
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {cards.map(({ href, key, icon: Icon }) => (
+          {cards.map(({ href, key }) => (
             <ServiceCard
               key={key}
               href={href}
               title={t(`${key}.title`)}
               description={t(`${key}.short`)}
               ctaLabel={tCta("learnMore")}
-              icon={<Icon className="h-5 w-5" />}
             />
           ))}
         </div>
