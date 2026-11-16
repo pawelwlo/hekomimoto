@@ -16,9 +16,9 @@ export async function POST(request: Request) {
     const message = String(form.get("message") ?? "").trim();
     const locale = String(form.get("locale") ?? "pl").trim();
 
-    if (!name || !phone) {
+    if (!name || !phone || !email) {
       return NextResponse.json(
-        { error: "Name and phone are required." },
+        { error: "Name, phone and email are required." },
         { status: 400 },
       );
     }
@@ -26,6 +26,13 @@ export async function POST(request: Request) {
     const files = form
       .getAll("files")
       .filter((f): f is File => f instanceof File && f.size > 0);
+
+    if (files.length < 1) {
+      return NextResponse.json(
+        { error: "At least one damage photo is required." },
+        { status: 400 },
+      );
+    }
 
     if (files.length > MAX_FILES) {
       return NextResponse.json(

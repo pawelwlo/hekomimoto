@@ -20,6 +20,10 @@
       "title": "Kontakt | Hekomimoto Poznań — darmowa wycena",
       "description": "Skontaktuj się z Hekomimoto. Ul. Obornicka 344, Poznań. Telefon: +48 601 416 332. Wyślij zdjęcia do wyceny."
     },
+    "booking": {
+      "title": "Rezerwacja terminu | Hekomimoto Poznań",
+      "description": "Wybierz wolny termin naprawy PDR w Hekomimoto. Wyślij zdjęcia, telefon i e-mail — potwierdzimy rezerwację."
+    },
     "services": {
       "pdr": {
         "title": "Usuwanie wgnieceń PDR | Hekomimoto Poznań",
@@ -47,6 +51,7 @@
     "home": "Strona główna",
     "services": "Usługi",
     "gallery": "Galeria",
+    "booking": "Termin",
     "about": "O nas",
     "faq": "FAQ",
     "contact": "Kontakt",
@@ -304,7 +309,7 @@
   "form": {
     "name": "Imię i nazwisko",
     "phone": "Telefon",
-    "email": "E-mail (opcjonalnie)",
+    "email": "E-mail",
     "message": "Wiadomość",
     "messagePlaceholder": "Opisz uszkodzenie, markę i model auta…",
     "photos": "Zdjęcia uszkodzeń",
@@ -319,6 +324,27 @@
     "required": "To pole jest wymagane.",
     "invalidPhone": "Podaj prawidłowy numer telefonu.",
     "privacy": "Wysyłając formularz, zgadzasz się na kontakt w sprawie wyceny."
+  },
+  "bookingPage": {
+    "title": "Zarezerwuj termin",
+    "subtitle": "Wybierz wolną datę i godzinę otwartą przez warsztat. Zdjęcia, telefon i e-mail są wymagane — potwierdzimy wizytę e-mailem.",
+    "loading": "Ładowanie wolnych terminów…",
+    "pickDate": "Wybierz dzień z wolnymi terminami (złote dni).",
+    "pickTime": "Wybierz godzinę",
+    "noTimes": "Brak wolnych godzin w tym dniu.",
+    "formTitle": "Twoje dane",
+    "formHint": "Po wysłaniu termin jest rezerwowany wstępnie. Dostaniesz e-mail po akceptacji.",
+    "photos": "Zdjęcia uszkodzeń",
+    "submit": "Wyślij rezerwację",
+    "success": "Dziękujemy! Termin jest oczekujący — napiszemy po potwierdzeniu.",
+    "prevMonth": "Poprzedni miesiąc",
+    "nextMonth": "Następny miesiąc",
+    "errors": {
+      "slot": "Wybierz datę i godzinę.",
+      "required": "Imię, telefon i e-mail są wymagane.",
+      "photos": "Dodaj co najmniej jedno zdjęcie.",
+      "generic": "Nie udało się wysłać. Spróbuj ponownie lub zadzwoń."
+    }
   },
   "quoteWidget": {
     "title": "Wyślij zdjęcia do wyceny",

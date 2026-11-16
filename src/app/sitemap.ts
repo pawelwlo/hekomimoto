@@ -6,6 +6,7 @@ const paths = [
   "/gallery",
   "/about",
   "/faq",
+  "/booking",
   "/contact",
   "/services/pdr",
   "/services/hail",

@@ -20,6 +20,10 @@
       "title": "Contact | Hekomimoto Poznań — free quote",
       "description": "Contact Hekomimoto. Ul. Obornicka 344, Poznań. Phone: +48 601 416 332. Send photos for a quote."
     },
+    "booking": {
+      "title": "Book an appointment | Hekomimoto Poznań",
+      "description": "Choose an available PDR slot at Hekomimoto. Photos, phone and email are required — we confirm by email."
+    },
     "services": {
       "pdr": {
         "title": "Paintless Dent Repair (PDR) | Hekomimoto Poznań",
@@ -47,6 +51,7 @@
     "home": "Home",
     "services": "Services",
     "gallery": "Gallery",
+    "booking": "Book",
     "about": "About",
     "faq": "FAQ",
     "contact": "Contact",
@@ -304,7 +309,7 @@
   "form": {
     "name": "Full name",
     "phone": "Phone",
-    "email": "Email (optional)",
+    "email": "Email",
     "message": "Message",
     "messagePlaceholder": "Describe the damage, make and model…",
     "photos": "Damage photos",
@@ -319,6 +324,27 @@
     "required": "This field is required.",
     "invalidPhone": "Enter a valid phone number.",
     "privacy": "By submitting, you agree to be contacted about your quote."
+  },
+  "bookingPage": {
+    "title": "Book an appointment",
+    "subtitle": "Pick a free date and hour opened by the workshop. Photos, phone and email are required — we confirm by email.",
+    "loading": "Loading available slots…",
+    "pickDate": "Choose a day with open slots (gold days).",
+    "pickTime": "Choose a time",
+    "noTimes": "No open hours on this day.",
+    "formTitle": "Your details",
+    "formHint": "After you submit, the slot is held pending. You’ll get an email once we confirm.",
+    "photos": "Damage photos",
+    "submit": "Request booking",
+    "success": "Thank you! Your slot is pending — we’ll email you after confirmation.",
+    "prevMonth": "Previous month",
+    "nextMonth": "Next month",
+    "errors": {
+      "slot": "Choose a date and time.",
+      "required": "Name, phone and email are required.",
+      "photos": "Add at least one photo.",
+      "generic": "Could not send. Try again or call us."
+    }
   },
   "quoteWidget": {
     "title": "Send photos for a quote",

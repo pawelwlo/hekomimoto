@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
 type ContactFormProps = {
-  requirePhotos?: boolean;
   className?: string;
   onSuccess?: () => void;
 };
@@ -16,7 +15,6 @@ const MAX_FILES = 6;
 const MAX_SIZE = 5 * 1024 * 1024;
 
 export function ContactForm({
-  requirePhotos = false,
   className,
   onSuccess,
 }: ContactFormProps) {
@@ -60,11 +58,11 @@ export function ContactForm({
     e.preventDefault();
     setFieldError(null);
 
-    if (!name.trim() || !phone.trim()) {
+    if (!name.trim() || !phone.trim() || !email.trim()) {
       setFieldError(t("required"));
       return;
     }
-    if (requirePhotos && files.length === 0) {
+    if (files.length === 0) {
       setFieldError(t("photosRequired"));
       return;
     }
@@ -74,7 +72,7 @@ export function ContactForm({
       const body = new FormData();
       body.set("name", name.trim());
       body.set("phone", phone.trim());
-      if (email.trim()) body.set("email", email.trim());
+      body.set("email", email.trim());
       if (message.trim()) body.set("message", message.trim());
       body.set("locale", locale);
       files.forEach((file) => body.append("files", file));
@@ -128,6 +126,7 @@ export function ContactForm({
       <label className="block text-sm">
         <span className="mb-1.5 block text-muted">{t("email")}</span>
         <input
+          required
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -149,8 +148,7 @@ export function ContactForm({
 
       <div>
         <p className="mb-1.5 text-sm text-muted">
-          {t("photos")}
-          {requirePhotos ? " *" : ""}
+          {t("photos")} *
         </p>
         <p className="mb-3 text-xs text-muted/80">{t("photosHint")}</p>
         <input

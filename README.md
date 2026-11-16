@@ -29,7 +29,19 @@ Edit `src/content/site.ts` for phone, WhatsApp, email, address, and hours.
 
 ## Quote photos
 
-The floating “Send photos” widget and contact form POST to `/api/quote`, which emails `kontakt@hekomimoto.com` via Resend with image attachments.
+The floating “Send photos” widget and contact form POST to `/api/quote`, which emails `kontakt@hekomimoto.com` via Resend with image attachments. Photos, phone and email are required.
+
+## Booking calendar
+
+- Public page: `/booking` — customers pick admin-opened 1-hour slots (Europe/Warsaw).
+- Required: photos, phone, email. Slot goes **pending** until accepted.
+- Admin panel: `/admin` — password login (`ADMIN_PASSWORD`), open/close hours, approve/reject.
+- On approve: customer gets confirmation email via Resend; slot becomes **booked**.
+- Data: Firestore (`bookingSlots`, `bookings`) + Storage (`bookings/…`); client rules deny all.
+
+Secrets for App Hosting: `ADMIN_PASSWORD`, `RESEND_API_KEY`, `RESEND_FROM`, and optionally `FIREBASE_SERVICE_ACCOUNT_JSON` / `ADMIN_SESSION_SECRET`.
+
+Checkpoint before this feature: git tag `before-calendar`.
 
 ## Images
 
