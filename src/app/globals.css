@@ -6,6 +6,7 @@
   --muted: #a3a3a3;
   --accent: #e3262a;
   --accent-hover: #ff3b3f;
+  --gold: #d6b36a;
   --surface: #141414;
   --surface-elevated: #1a1a1a;
   --border: rgba(255, 255, 255, 0.08);
@@ -19,6 +20,7 @@
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
+  --color-gold: var(--gold);
   --color-surface: var(--surface);
   --color-surface-elevated: var(--surface-elevated);
   --color-border: var(--border);
