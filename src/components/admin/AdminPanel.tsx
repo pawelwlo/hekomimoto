@@ -5,11 +5,22 @@ import { Loader2, LogOut, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { monthMatrix, todayWarsawDate } from "@/lib/booking/time";
-import { SLOT_HOURS, type Booking, type BookingSlot } from "@/lib/booking/types";
+import {
+  SLOT_HOURS,
+  type Booking,
+  type BookingSlot,
+  type SlotStatus,
+} from "@/lib/booking/types";
 
 type BookingsResponse = {
   pending: Booking[];
   confirmed: Booking[];
+};
+
+const SLOT_STATUS_LABELS: Record<SlotStatus, string> = {
+  open: "wolny",
+  pending: "oczekujący",
+  booked: "zarezerwowany",
 };
 
 export function AdminPanel() {
@@ -445,7 +456,9 @@ export function AdminPanel() {
                   )}
                 >
                   {time}
-                  {existing ? ` · ${existing.status}` : ""}
+                  {existing
+                    ? ` · ${SLOT_STATUS_LABELS[existing.status]}`
+                    : ""}
                 </button>
               );
             })}
@@ -466,7 +479,9 @@ export function AdminPanel() {
                 >
                   <span>
                     {slot.time}{" "}
-                    <span className="text-muted">({slot.status})</span>
+                    <span className="text-muted">
+                      ({SLOT_STATUS_LABELS[slot.status]})
+                    </span>
                   </span>
                   {slot.status === "open" ? (
                     <button

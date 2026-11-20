@@ -14,6 +14,8 @@ export async function POST(request: Request) {
     const email = String(form.get("email") ?? "").trim();
     const message = String(form.get("message") ?? "").trim();
     const locale = String(form.get("locale") ?? "pl").trim();
+    const messageOnly =
+      form.get("messageOnly") === "true" || form.get("messageOnly") === "on";
 
     if (!name || !phone || !email) {
       return NextResponse.json(
@@ -26,9 +28,16 @@ export async function POST(request: Request) {
       .getAll("files")
       .filter((f): f is File => f instanceof File && f.size > 0);
 
-    if (files.length < 1) {
+    if (files.length < 1 && !messageOnly) {
       return NextResponse.json(
         { error: "At least one damage photo is required." },
+        { status: 400 },
+      );
+    }
+
+    if (files.length < 1 && messageOnly && !message) {
+      return NextResponse.json(
+        { error: "A message is required when no photos are attached." },
         { status: 400 },
       );
     }

@@ -27,6 +27,7 @@ export function ContactForm({
   const [message, setMessage] = useState("");
   const [files, setFiles] = useState<File[]>([]);
   const [previews, setPreviews] = useState<string[]>([]);
+  const [messageOnly, setMessageOnly] = useState(false);
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">(
     "idle",
   );
@@ -62,8 +63,12 @@ export function ContactForm({
       setFieldError(t("required"));
       return;
     }
-    if (files.length === 0) {
+    if (files.length === 0 && !messageOnly) {
       setFieldError(t("photosRequired"));
+      return;
+    }
+    if (files.length === 0 && messageOnly && !message.trim()) {
+      setFieldError(t("messageRequired"));
       return;
     }
 
@@ -75,6 +80,7 @@ export function ContactForm({
       body.set("email", email.trim());
       if (message.trim()) body.set("message", message.trim());
       body.set("locale", locale);
+      if (messageOnly) body.set("messageOnly", "true");
       files.forEach((file) => body.append("files", file));
 
       const res = await fetch("/api/quote", { method: "POST", body });
@@ -84,6 +90,7 @@ export function ContactForm({
       setPhone("");
       setEmail("");
       setMessage("");
+      setMessageOnly(false);
       previews.forEach((url) => URL.revokeObjectURL(url));
       setFiles([]);
       setPreviews([]);
@@ -146,9 +153,23 @@ export function ContactForm({
         />
       </label>
 
-      <div>
+      <label className="flex min-h-11 cursor-pointer items-center gap-3 text-sm text-muted">
+        <input
+          type="checkbox"
+          checked={messageOnly}
+          onChange={(e) => {
+            setMessageOnly(e.target.checked);
+            setFieldError(null);
+          }}
+          className="h-5 w-5 shrink-0 cursor-pointer rounded border-white/20 bg-white/5 accent-[var(--color-accent)]"
+        />
+        <span>{t("messageOnly")}</span>
+      </label>
+
+      <div className={cn(messageOnly && "opacity-60")}>
         <p className="mb-1.5 text-sm text-muted">
-          {t("photos")} *
+          {t("photos")}
+          {messageOnly ? null : " *"}
         </p>
         <p className="mb-3 text-xs text-muted/80">{t("photosHint")}</p>
         <input
@@ -158,7 +179,10 @@ export function ContactForm({
           capture="environment"
           multiple
           className="sr-only"
-          onChange={(e) => addFiles(e.target.files)}
+          onChange={(e) => {
+            addFiles(e.target.files);
+            if (e.target.files?.length) setMessageOnly(false);
+          }}
         />
         <button
           type="button"

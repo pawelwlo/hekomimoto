@@ -113,6 +113,8 @@ export async function emailCustomerConfirmation(booking: Booking) {
           `Address: ${siteConfig.address.full}`,
           `Phone: ${siteConfig.phone}`,
           "",
+          `To cancel or change the appointment, call ${siteConfig.phone} or reply to this message.`,
+          "",
           "See you soon,",
           "Hekomimoto",
         ].join("\n")
@@ -124,6 +126,8 @@ export async function emailCustomerConfirmation(booking: Booking) {
           "",
           `Adres: ${siteConfig.address.full}`,
           `Telefon: ${siteConfig.phone}`,
+          "",
+          `Aby odwołać lub zmienić termin, zadzwoń: ${siteConfig.phone} lub odpowiedz na tę wiadomość.`,
           "",
           "Do zobaczenia,",
           "Hekomimoto",
