@@ -2,8 +2,8 @@ import { getTranslations } from "next-intl/server";
 import { MapPin, Mail, Phone } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { serviceRoutes, siteConfig } from "@/content/site";
-import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { InstagramIcon } from "@/components/ui/InstagramIcon";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 
 export async function Footer() {
   const t = await getTranslations("footer");

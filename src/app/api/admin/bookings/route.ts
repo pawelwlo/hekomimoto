@@ -4,7 +4,11 @@ import {
   emailCustomerConfirmation,
   emailCustomerRejection,
 } from "@/lib/booking/email";
-import { decideBooking, listBookingsByStatus } from "@/lib/booking/store";
+import {
+  decideBooking,
+  listBookingsByStatus,
+  reschedulePendingBooking,
+} from "@/lib/booking/store";
 import { FirebaseAdminConfigError } from "@/lib/firebase-admin";
 
 export const runtime = "nodejs";
@@ -40,15 +44,33 @@ export async function PATCH(request: Request) {
   const body = (await request.json().catch(() => null)) as {
     bookingId?: string;
     decision?: "confirmed" | "rejected";
+    action?: "decide" | "reschedule";
+    date?: string;
+    time?: string;
   } | null;
 
   const bookingId = String(body?.bookingId ?? "");
-  const decision = body?.decision;
-  if (!bookingId || (decision !== "confirmed" && decision !== "rejected")) {
+  if (!bookingId) {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
+  const action =
+    body?.action ??
+    (body?.decision ? "decide" : body?.date && body?.time ? "reschedule" : null);
+
   try {
+    if (action === "reschedule") {
+      const date = String(body?.date ?? "");
+      const time = String(body?.time ?? "");
+      const booking = await reschedulePendingBooking(bookingId, date, time);
+      return NextResponse.json({ ok: true, booking });
+    }
+
+    const decision = body?.decision;
+    if (decision !== "confirmed" && decision !== "rejected") {
+      return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+    }
+
     const booking = await decideBooking(bookingId, decision);
     if (decision === "confirmed") {
       await emailCustomerConfirmation(booking);
@@ -58,7 +80,7 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ ok: true, booking });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed";
-    console.error("[admin] decide booking failed", error);
+    console.error("[admin] booking update failed", error);
     return NextResponse.json({ error: message }, { status: 400 });
   }
 }

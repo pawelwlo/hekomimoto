@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 
-const items = ["paint", "fast", "cost", "value"] as const;
+const items = ["paint", "fast", "cost"] as const;
 
 export async function WhyUs() {
   const t = await getTranslations("whyUs");
@@ -11,7 +11,7 @@ export async function WhyUs() {
     <section className="py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <SectionHeading title={t("title")} subtitle={t("subtitle")} />
-        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-5 md:grid-cols-3">
           {items.map((key) => (
             <GlassPanel key={key}>
               <h3 className="font-display text-lg font-semibold text-white">

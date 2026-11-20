@@ -97,8 +97,8 @@
     "follow": "Follow us"
   },
   "hero": {
-    "headline": "Professional <gold>paintless</gold> dent repair",
-    "subheadline": "PDR and hail damage repair in Poznań. We preserve original paint, vehicle value and your time.",
+    "headline": "Professional dent repair with the <gold>PDR</gold> method",
+    "subheadline": "PDR is dent repair <gold>without repainting</gold>. We preserve original paint, vehicle value and your time.",
     "badge": "Hekomimoto · Poznań"
   },
   "trust": {
@@ -135,8 +135,8 @@
     },
     "parking": {
       "title": "Parking dents",
-      "short": "Fast repair for doors, fenders and sides after parking mishaps.",
-      "description": "Neighbour’s door, shopping cart or bollard — typical parking dents are often fixed the same day, without a body shop visit."
+      "short": "Fast repair of dents from parking incidents.",
+      "description": "Quick repair — dents are often removed in as little as 30 minutes up to a few hours. Neighbour’s door, shopping cart or bollard — without a traditional body shop visit."
     },
     "vandalism": {
       "title": "Vandalism damage",
@@ -155,8 +155,9 @@
     },
     "mobile": {
       "title": "Mobile PDR",
-      "short": "We come to you — home, office or parking lot.",
-      "description": "You don’t always need to leave the car at the workshop. We offer mobile PDR across Poznań and nearby."
+      "short": "Contact us to schedule a repair.",
+      "description": "We work with car dealerships, detailing studios and fleets. Whether you want ongoing cooperation or a single job — get in touch.",
+      "roomNote": "Mobile repair cannot be done outdoors. A heated indoor space with enough room is required."
     },
     "benefitsTitle": "Benefits",
     "processTitle": "How the repair works",
@@ -164,19 +165,19 @@
   },
   "whyUs": {
     "title": "Why Hekomimoto",
-    "subtitle": "Premium PDR — no compromise on quality or communication.",
+    "subtitle": "10 years of experience and hundreds of thousands of dents removed.",
     "items": {
       "paint": {
         "title": "Original paint",
-        "text": "No sanding or spraying — you keep the factory finish."
+        "text": "The repair technology preserves the factory paint finish."
       },
       "fast": {
         "title": "Fast repairs",
-        "text": "Most jobs are completed within 1–3 business days."
+        "text": "In some cases repair time is as little as 30 minutes."
       },
       "cost": {
         "title": "Lower cost",
-        "text": "PDR is usually significantly cheaper than traditional bodywork."
+        "text": "PDR is usually clearly cheaper than traditional paintwork repair."
       },
       "value": {
         "title": "Vehicle value",
@@ -192,24 +193,24 @@
     "drag": "Drag to compare"
   },
   "process": {
-    "title": "Simple process",
-    "subtitle": "From photos to pickup — no unnecessary paperwork.",
+    "title": "How the repair works",
+    "subtitle": "From quote to pickup — clear and straightforward.",
     "steps": {
       "1": {
-        "title": "Send photos",
-        "text": "Take a few damage photos on your phone and send them via the form or WhatsApp."
+        "title": "Call and book a quote",
+        "text": "Call us and schedule a damage assessment."
       },
       "2": {
-        "title": "Receive a quote",
-        "text": "You’ll get an estimate and timing — usually within a few hours."
+        "title": "Quote and decision",
+        "text": "After the quote you can book the repair or present the estimate to your insurer."
       },
       "3": {
         "title": "Repair",
-        "text": "We perform precise PDR at the workshop or on-site."
+        "text": "Leave the car for repair on the agreed date."
       },
       "4": {
         "title": "Collect your car",
-        "text": "Pick up your vehicle with restored panel lines and original paint."
+        "text": "Your car is dent-free with the original paint preserved."
       }
     }
   },

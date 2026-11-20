@@ -7,7 +7,6 @@ import { Link } from "@/i18n/navigation";
 import { navItems, serviceRoutes, siteConfig } from "@/content/site";
 import { useQuoteWidget } from "@/components/providers/QuoteWidgetProvider";
 import { Button } from "@/components/ui/Button";
-import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 
 export function Navbar() {
   const t = useTranslations("nav");
@@ -70,7 +69,6 @@ export function Navbar() {
         </nav>
 
         <div className="hidden shrink-0 items-center gap-3 md:flex">
-          <LanguageSwitcher />
           <a
             href={siteConfig.phoneHref}
             className="inline-flex items-center gap-2 text-sm font-medium text-white transition-colors hover:text-accent"

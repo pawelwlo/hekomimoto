@@ -27,9 +27,29 @@ Open [http://localhost:3000](http://localhost:3000) (Polish default) or [http://
 
 Edit `src/content/site.ts` for phone, WhatsApp, email, address, and hours.
 
+## Email (contact + booking)
+
+Shared Resend mailer in `src/lib/mailer.ts`:
+
+| Event | To workshop | To customer |
+| --- | --- | --- |
+| Contact / quote form | Yes (+ photos) | Acknowledgement |
+| Booking request | Yes (+ photos) | Pending acknowledgement |
+| Booking accepted | — | Confirmation |
+| Booking rejected | — | Update email |
+
+Local `.env.local`:
+
+```bash
+RESEND_API_KEY=re_xxxxxxxx
+RESEND_FROM=Hekomimoto <kontakt@hekomimoto.com>
+```
+
+Verify domain `hekomimoto.com` in Resend (DNS) before using `kontakt@hekomimoto.com` as the from-address.
+
 ## Quote photos
 
-The floating “Send photos” widget and contact form POST to `/api/quote`, which emails `kontakt@hekomimoto.com` via Resend with image attachments. Photos, phone and email are required.
+The floating “Send photos” widget and contact form POST to `/api/quote`. Photos, phone and email are required.
 
 ## Booking calendar
 

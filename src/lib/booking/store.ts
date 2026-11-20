@@ -5,10 +5,11 @@ import {
   slotIdFor,
   warsawLocalToUtc,
 } from "@/lib/booking/time";
-import type {
-  Booking,
-  BookingSlot,
-  SlotStatus,
+import {
+  SLOT_HOURS,
+  type Booking,
+  type BookingSlot,
+  type SlotStatus,
 } from "@/lib/booking/types";
 
 const SLOTS = "bookingSlots";
@@ -184,24 +185,16 @@ export async function createPendingBooking(input: {
     photoUrls = await uploadBookingPhotos(bookingId, input.files);
     await bookingRef.update({ photoUrls, updatedAt: nowIso() });
   } catch (error) {
-    console.error("[booking] photo upload failed", error);
-    await db.runTransaction(async (tx) => {
-      tx.update(slotRef, {
-        status: "open",
-        bookingId: null,
-        updatedAt: nowIso(),
-      });
-      tx.update(bookingRef, {
-        status: "rejected",
-        updatedAt: nowIso(),
-        decidedAt: nowIso(),
-      });
-    });
-    throw new Error("Photo upload failed");
+    // Storage may not be set up yet — keep the booking; photos go via email attachments.
+    console.warn(
+      "[booking] Storage upload skipped; photos will be emailed as attachments.",
+      error,
+    );
   }
 
   const bookingSnap = await bookingRef.get();
-  return { id: bookingSnap.id, ...bookingSnap.data() } as Booking;
+  const booking = { id: bookingSnap.id, ...bookingSnap.data() } as Booking;
+  return { booking, files: input.files };
 }
 
 export async function listBookingsByStatus(
@@ -216,6 +209,103 @@ export async function listBookingsByStatus(
   return snap.docs
     .map((doc) => ({ id: doc.id, ...doc.data() }) as Booking)
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+export async function reschedulePendingBooking(
+  bookingId: string,
+  date: string,
+  time: string,
+) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    throw new Error("Invalid date");
+  }
+  if (!(SLOT_HOURS as readonly string[]).includes(time)) {
+    throw new Error("Invalid time");
+  }
+
+  const db = getAdminDb();
+  const bookingRef = db.collection(BOOKINGS).doc(bookingId);
+  const newSlotId = slotIdFor(date, time);
+  const now = nowIso();
+  const start = warsawLocalToUtc(date, time);
+  const end = addOneHour(start);
+
+  if (start.getTime() <= Date.now()) {
+    throw new Error("New slot is in the past");
+  }
+
+  return db.runTransaction(async (tx) => {
+    const bookingSnap = await tx.get(bookingRef);
+    if (!bookingSnap.exists) throw new Error("Booking not found");
+    const current = { id: bookingSnap.id, ...bookingSnap.data() } as Booking;
+    if (current.status !== "pending") {
+      throw new Error("Only pending bookings can be rescheduled");
+    }
+
+    if (current.slotId === newSlotId) {
+      return current;
+    }
+
+    const oldSlotRef = db.collection(SLOTS).doc(current.slotId);
+    const newSlotRef = db.collection(SLOTS).doc(newSlotId);
+    const [oldSlotSnap, newSlotSnap] = await Promise.all([
+      tx.get(oldSlotRef),
+      tx.get(newSlotRef),
+    ]);
+
+    if (newSlotSnap.exists) {
+      const existing = newSlotSnap.data() as BookingSlot;
+      if (existing.status !== "open") {
+        throw new Error("Target slot is not available");
+      }
+      tx.update(newSlotRef, {
+        status: "pending",
+        bookingId: current.id,
+        updatedAt: now,
+      });
+    } else {
+      const slot: BookingSlot = {
+        id: newSlotId,
+        date,
+        time,
+        startAt: start.toISOString(),
+        endAt: end.toISOString(),
+        status: "pending",
+        bookingId: current.id,
+        createdAt: now,
+        updatedAt: now,
+      };
+      tx.set(newSlotRef, slot);
+    }
+
+    if (oldSlotSnap.exists) {
+      tx.update(oldSlotRef, {
+        status: "open",
+        bookingId: null,
+        updatedAt: now,
+      });
+    }
+
+    const updated: Booking = {
+      ...current,
+      slotId: newSlotId,
+      date,
+      time,
+      startAt: start.toISOString(),
+      endAt: end.toISOString(),
+      updatedAt: now,
+    };
+    tx.update(bookingRef, {
+      slotId: newSlotId,
+      date,
+      time,
+      startAt: updated.startAt,
+      endAt: updated.endAt,
+      updatedAt: now,
+    });
+
+    return updated;
+  });
 }
 
 export async function decideBooking(

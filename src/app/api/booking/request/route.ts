@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
-import { emailAdminNewBooking } from "@/lib/booking/email";
+import {
+  emailAdminNewBooking,
+  emailCustomerBookingReceived,
+} from "@/lib/booking/email";
 import { createPendingBooking } from "@/lib/booking/store";
+import { MailerConfigError } from "@/lib/mailer";
 
 export const runtime = "nodejs";
 
@@ -59,7 +63,7 @@ export async function POST(request: Request) {
       }
     }
 
-    const booking = await createPendingBooking({
+    const { booking, files: uploaded } = await createPendingBooking({
       slotId,
       name,
       phone,
@@ -69,7 +73,16 @@ export async function POST(request: Request) {
       files,
     });
 
-    await emailAdminNewBooking(booking);
+    try {
+      await emailAdminNewBooking(booking, uploaded);
+      await emailCustomerBookingReceived(booking);
+    } catch (mailError) {
+      if (mailError instanceof MailerConfigError) {
+        console.warn("[booking] emails skipped:", mailError.message);
+      } else {
+        console.error("[booking] email notify failed", mailError);
+      }
+    }
 
     return NextResponse.json({ ok: true, bookingId: booking.id });
   } catch (error) {
@@ -80,7 +93,9 @@ export async function POST(request: Request) {
         ? 409
         : message === "Slot not found"
           ? 404
-          : 500;
+          : message.includes("required") || message.includes("photo")
+            ? 400
+            : 500;
     return NextResponse.json({ error: message }, { status });
   }
 }

@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
-import { siteConfig } from "@/content/site";
+import { MailerConfigError, sendQuoteEmails } from "@/lib/mailer";
 
 export const runtime = "nodejs";
 
@@ -56,60 +55,17 @@ export async function POST(request: Request) {
       }
     }
 
-    const apiKey = process.env.RESEND_API_KEY;
-    if (!apiKey) {
-      return NextResponse.json(
-        {
-          error:
-            "RESEND_API_KEY is not configured. Add it to .env.local to enable quote emails.",
-        },
-        { status: 503 },
-      );
-    }
-
-    const from =
-      process.env.RESEND_FROM ?? "Hekomimoto <onboarding@resend.dev>";
-    const resend = new Resend(apiKey);
-
-    const attachments = await Promise.all(
-      files.map(async (file) => ({
-        filename: file.name || "photo.jpg",
-        content: Buffer.from(await file.arrayBuffer()),
-      })),
-    );
-
-    const { error } = await resend.emails.send({
-      from,
-      to: [siteConfig.email],
-      replyTo: email || undefined,
-      subject: `[Wycena] ${name} · ${phone}`,
-      text: [
-        `Nowe zgłoszenie wyceny / New quote request`,
-        ``,
-        `Imię / Name: ${name}`,
-        `Telefon / Phone: ${phone}`,
-        `Email: ${email || "—"}`,
-        `Język / Locale: ${locale}`,
-        ``,
-        `Wiadomość / Message:`,
-        message || "—",
-        ``,
-        `Załączniki / Attachments: ${files.length}`,
-      ].join("\n"),
-      attachments,
-    });
-
-    if (error) {
-      console.error("Resend error:", error);
-      return NextResponse.json(
-        { error: "Failed to send email." },
-        { status: 502 },
-      );
-    }
+    await sendQuoteEmails({ name, phone, email, message, locale, files });
 
     return NextResponse.json({ ok: true });
   } catch (err) {
+    if (err instanceof MailerConfigError) {
+      return NextResponse.json({ error: err.message }, { status: 503 });
+    }
     console.error("Quote API error:", err);
-    return NextResponse.json({ error: "Unexpected error." }, { status: 500 });
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : "Unexpected error." },
+      { status: 502 },
+    );
   }
 }

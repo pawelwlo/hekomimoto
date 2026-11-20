@@ -30,6 +30,9 @@ export function AdminPanel() {
     pending: [],
     confirmed: [],
   });
+  const [edits, setEdits] = useState<
+    Record<string, { date: string; time: string }>
+  >({});
   const [message, setMessage] = useState<string | null>(null);
 
   const refresh = useCallback(async () => {
@@ -168,14 +171,102 @@ export function AdminPanel() {
     }
   }
 
-  async function decide(bookingId: string, decision: "confirmed" | "rejected") {
+  function draftFor(b: Booking) {
+    return edits[b.id] ?? { date: b.date, time: b.time };
+  }
+
+  function setDraft(
+    bookingId: string,
+    patch: Partial<{ date: string; time: string }>,
+  ) {
+    setEdits((prev) => {
+      const fromBooking = bookings.pending.find((x) => x.id === bookingId);
+      const current = prev[bookingId] ?? {
+        date: fromBooking?.date ?? "",
+        time: fromBooking?.time ?? "",
+      };
+      return {
+        ...prev,
+        [bookingId]: {
+          date: patch.date ?? current.date,
+          time: patch.time ?? current.time,
+        },
+      };
+    });
+  }
+
+  async function saveSchedule(bookingId: string) {
+    const booking = bookings.pending.find((b) => b.id === bookingId);
+    if (!booking) return;
+    const draft = draftFor(booking);
+    if (draft.date === booking.date && draft.time === booking.time) {
+      setMessage("Termin bez zmian.");
+      return;
+    }
+
     setBusy(true);
     setMessage(null);
     try {
       const res = await fetch("/api/admin/bookings", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ bookingId, decision }),
+        body: JSON.stringify({
+          action: "reschedule",
+          bookingId,
+          date: draft.date,
+          time: draft.time,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setMessage(data.error ?? "Nie udało się zmienić terminu.");
+      } else {
+        setMessage("Termin zaktualizowany.");
+        setEdits((prev) => {
+          const next = { ...prev };
+          delete next[bookingId];
+          return next;
+        });
+        await refresh();
+      }
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function decide(bookingId: string, decision: "confirmed" | "rejected") {
+    setBusy(true);
+    setMessage(null);
+    try {
+      const booking = bookings.pending.find((b) => b.id === bookingId);
+      const draft = booking ? draftFor(booking) : null;
+      if (
+        decision === "confirmed" &&
+        booking &&
+        draft &&
+        (draft.date !== booking.date || draft.time !== booking.time)
+      ) {
+        const reschedule = await fetch("/api/admin/bookings", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "reschedule",
+            bookingId,
+            date: draft.date,
+            time: draft.time,
+          }),
+        });
+        const rescheduleData = await reschedule.json();
+        if (!reschedule.ok) {
+          setMessage(rescheduleData.error ?? "Nie udało się zmienić terminu.");
+          return;
+        }
+      }
+
+      const res = await fetch("/api/admin/bookings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bookingId, decision, action: "decide" }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -186,6 +277,11 @@ export function AdminPanel() {
             ? "Termin potwierdzony — wysłano e-mail do klienta."
             : "Odrzucono — termin wrócił do wolnych.",
         );
+        setEdits((prev) => {
+          const next = { ...prev };
+          delete next[bookingId];
+          return next;
+        });
         await refresh();
       }
     } finally {
@@ -397,55 +493,99 @@ export function AdminPanel() {
           Oczekujące rezerwacje
         </h2>
         <div className="mt-4 space-y-4">
-          {bookings.pending.map((b) => (
-            <div
-              key={b.id}
-              className="rounded-xl border border-white/10 p-4"
-            >
-              <p className="font-semibold text-white">
-                {b.date} {b.time} — {b.name}
-              </p>
-              <p className="mt-1 text-sm text-muted">
-                {b.phone} · {b.email}
-              </p>
-              {b.message ? (
-                <p className="mt-2 text-sm text-neutral-300">{b.message}</p>
-              ) : null}
-              {b.photoUrls?.length ? (
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {b.photoUrls.map((url) => (
-                    <a
-                      key={url}
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="relative block h-20 w-20 overflow-hidden rounded-lg border border-white/10"
+          {bookings.pending.map((b) => {
+            const draft = draftFor(b);
+            const dirty = draft.date !== b.date || draft.time !== b.time;
+            return (
+              <div
+                key={b.id}
+                className="rounded-xl border border-white/10 p-4"
+              >
+                <p className="font-semibold text-white">{b.name}</p>
+                <p className="mt-1 text-sm text-muted">
+                  {b.phone} · {b.email}
+                </p>
+                <p className="mt-1 text-xs text-muted">
+                  Zgłoszony termin: {b.date} {b.time}
+                </p>
+
+                <div className="mt-4 grid gap-3 sm:grid-cols-[1fr_auto_auto] sm:items-end">
+                  <label className="block text-sm">
+                    <span className="mb-1.5 block text-muted">Data</span>
+                    <input
+                      type="date"
+                      value={draft.date}
+                      onChange={(e) => setDraft(b.id, { date: e.target.value })}
+                      className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-white outline-none focus:border-accent"
+                    />
+                  </label>
+                  <label className="block text-sm">
+                    <span className="mb-1.5 block text-muted">Godzina</span>
+                    <select
+                      value={draft.time}
+                      onChange={(e) => setDraft(b.id, { time: e.target.value })}
+                      className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-white outline-none focus:border-accent"
                     >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={url} alt="" className="h-full w-full object-cover" />
-                    </a>
-                  ))}
+                      {SLOT_HOURS.map((hour) => (
+                        <option key={hour} value={hour} className="bg-surface">
+                          {hour}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    disabled={busy || !dirty}
+                    onClick={() => saveSchedule(b.id)}
+                  >
+                    Zapisz termin
+                  </Button>
                 </div>
-              ) : null}
-              <div className="mt-4 flex flex-wrap gap-2">
-                <Button
-                  size="sm"
-                  disabled={busy}
-                  onClick={() => decide(b.id, "confirmed")}
-                >
-                  Akceptuj
-                </Button>
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  disabled={busy}
-                  onClick={() => decide(b.id, "rejected")}
-                >
-                  Odrzuć
-                </Button>
+
+                {b.message ? (
+                  <p className="mt-3 text-sm text-neutral-300">{b.message}</p>
+                ) : null}
+                {b.photoUrls?.length ? (
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {b.photoUrls.map((url) => (
+                      <a
+                        key={url}
+                        href={url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="relative block h-20 w-20 overflow-hidden rounded-lg border border-white/10"
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={url}
+                          alt=""
+                          className="h-full w-full object-cover"
+                        />
+                      </a>
+                    ))}
+                  </div>
+                ) : null}
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Button
+                    size="sm"
+                    disabled={busy}
+                    onClick={() => decide(b.id, "confirmed")}
+                  >
+                    Akceptuj
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    disabled={busy}
+                    onClick={() => decide(b.id, "rejected")}
+                  >
+                    Odrzuć
+                  </Button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
           {!bookings.pending.length ? (
             <p className="text-sm text-muted">Brak oczekujących zgłoszeń.</p>
           ) : null}

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { fetchWpGalleryItems } from "@/lib/wordpress";
 import type { ServiceKey } from "@/types";
 
-const benefitKeys = ["paint", "fast", "cost", "value"] as const;
+const benefitKeys = ["paint", "fast", "cost"] as const;
 
 type ServicePageProps = {
   serviceKey: ServiceKey;
@@ -20,6 +20,7 @@ export async function ServicePageContent({ serviceKey }: ServicePageProps) {
   const tPages = await getTranslations("servicePages");
   const galleryItems = await fetchWpGalleryItems();
   const sample = galleryItems[0];
+  const isMobile = serviceKey === "mobile";
 
   return (
     <>
@@ -35,35 +36,56 @@ export async function ServicePageContent({ serviceKey }: ServicePageProps) {
           <p className="mt-5 max-w-2xl text-lg text-muted">
             {t(`${serviceKey}.description`)}
           </p>
+          {isMobile ? (
+            <p className="mt-4 max-w-2xl text-base text-gold/90">
+              {t("mobile.roomNote")}
+            </p>
+          ) : null}
         </div>
       </section>
 
-      <section className="py-16 md:py-20">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 md:grid-cols-2 md:px-6">
-          <div>
-            <SectionHeading
-              align="left"
-              title={t("benefitsTitle")}
-              className="mb-6"
-            />
-            <ul className="space-y-4">
-              {benefitKeys.map((key) => (
-                <li key={key} className="flex gap-3">
-                  <Check className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
-                  <div>
-                    <p className="font-medium text-white">
-                      {tWhy(`items.${key}.title`)}
-                    </p>
-                    <p className="text-sm text-muted">
-                      {tWhy(`items.${key}.text`)}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+      {!isMobile ? (
+        <section className="py-16 md:py-20">
+          <div className="mx-auto grid max-w-7xl gap-10 px-4 md:grid-cols-2 md:px-6">
+            <div>
+              <SectionHeading
+                align="left"
+                title={t("benefitsTitle")}
+                className="mb-6"
+              />
+              <ul className="space-y-4">
+                {benefitKeys.map((key) => (
+                  <li key={key} className="flex gap-3">
+                    <Check className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
+                    <div>
+                      <p className="font-medium text-white">
+                        {tWhy(`items.${key}.title`)}
+                      </p>
+                      <p className="text-sm text-muted">
+                        {tWhy(`items.${key}.text`)}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            {sample ? (
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10">
+                <Image
+                  src={sample.src}
+                  alt={sample.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+            ) : null}
           </div>
-          {sample ? (
-            <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/10">
+        </section>
+      ) : sample ? (
+        <section className="py-16 md:py-20">
+          <div className="mx-auto max-w-7xl px-4 md:px-6">
+            <div className="relative mx-auto aspect-[4/3] max-w-3xl overflow-hidden rounded-2xl border border-white/10">
               <Image
                 src={sample.src}
                 alt={sample.alt}
@@ -72,30 +94,32 @@ export async function ServicePageContent({ serviceKey }: ServicePageProps) {
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
             </div>
-          ) : null}
-        </div>
-      </section>
-
-      <section className="bg-grid py-16">
-        <div className="mx-auto max-w-7xl px-4 md:px-6">
-          <SectionHeading title={t("processTitle")} />
-          <div className="grid gap-4 md:grid-cols-4">
-            {(["1", "2", "3", "4"] as const).map((step) => (
-              <GlassPanel key={step}>
-                <p className="text-accent font-display text-2xl font-bold">
-                  {step}
-                </p>
-                <h3 className="mt-2 font-semibold text-white">
-                  {tProcess(`steps.${step}.title`)}
-                </h3>
-                <p className="mt-2 text-sm text-muted">
-                  {tProcess(`steps.${step}.text`)}
-                </p>
-              </GlassPanel>
-            ))}
           </div>
-        </div>
-      </section>
+        </section>
+      ) : null}
+
+      {!isMobile ? (
+        <section className="bg-grid py-16">
+          <div className="mx-auto max-w-7xl px-4 md:px-6">
+            <SectionHeading title={t("processTitle")} />
+            <div className="grid gap-4 md:grid-cols-4">
+              {(["1", "2", "3", "4"] as const).map((step) => (
+                <GlassPanel key={step}>
+                  <p className="text-accent font-display text-2xl font-bold">
+                    {step}
+                  </p>
+                  <h3 className="mt-2 font-semibold text-white">
+                    {tProcess(`steps.${step}.title`)}
+                  </h3>
+                  <p className="mt-2 text-sm text-muted">
+                    {tProcess(`steps.${step}.text`)}
+                  </p>
+                </GlassPanel>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <CTASection title={tPages("ctaTitle")} subtitle={tPages("ctaSubtitle")} />
     </>

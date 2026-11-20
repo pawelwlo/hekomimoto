@@ -97,8 +97,8 @@
     "follow": "Śledź nas"
   },
   "hero": {
-    "headline": "Profesjonalne usuwanie wgnieceń <gold>bez lakierowania</gold>",
-    "subheadline": "PDR i naprawa po gradobiciu w Poznaniu. Zachowujemy oryginalny lakier, wartość auta i Twój czas.",
+    "headline": "Profesjonalne usuwanie wgnieceń metodą <gold>PDR</gold>",
+    "subheadline": "PDR to naprawa wgnieceń <gold>bez lakierowania</gold>. Zachowujemy oryginalny lakier, wartość auta i Twój czas.",
     "badge": "Hekomimoto · Poznań"
   },
   "trust": {
@@ -135,8 +135,8 @@
     },
     "parking": {
       "title": "Wgniecenia parkingowe",
-      "short": "Szybka naprawa drzwi, błotników i boków po manewrach parkingowych.",
-      "description": "Otwarte drzwi sąsiada, wózek sklepowy czy słupek — typowe wgniecenia parkingowe usuwamy sprawnie, często tego samego dnia, bez wizyty w blacharce."
+      "short": "Szybka naprawa wgnieceń powstałych po incydentach parkingowych.",
+      "description": "Szybka naprawa — wgniecenia usuwane są nawet od 30 minut do kilku godzin. Otwarte drzwi sąsiada, wózek sklepowy czy słupek naprawiamy sprawnie, bez wizyty w tradycyjnej blacharce."
     },
     "vandalism": {
       "title": "Akty wandalizmu",
@@ -155,8 +155,9 @@
     },
     "mobile": {
       "title": "Mobilne usługi PDR",
-      "short": "Przyjeżdżamy do Ciebie — dom, firma lub parking.",
-      "description": "Nie zawsze musisz zostawiać auto w warsztacie. Oferujemy mobilne usługi PDR na terenie Poznania i okolic."
+      "short": "Skontaktuj się z nami, aby umówić naprawę.",
+      "description": "Współpracujemy z salonami samochodowymi, studiami detailingowymi oraz z flotami. Jeśli jesteś zainteresowany stałą współpracą lub masz pojedyncze zlecenie — zapraszamy do kontaktu.",
+      "roomNote": "Naprawa mobilna nie może zostać przeprowadzona na zewnątrz. Konieczne jest zapewnienie ogrzewanego pomieszczenia z odpowiednią ilością miejsca."
     },
     "benefitsTitle": "Korzyści",
     "processTitle": "Jak przebiega naprawa",
@@ -164,19 +165,19 @@
   },
   "whyUs": {
     "title": "Dlaczego Hekomimoto",
-    "subtitle": "Premium PDR — bez kompromisów w jakości i komunikacji.",
+    "subtitle": "10 lat doświadczenia i setki tysięcy usuniętych wgnieceń.",
     "items": {
       "paint": {
         "title": "Oryginalny lakier",
-        "text": "Nie szlifujemy i nie lakierujemy — zachowujesz fabryczną powłokę."
+        "text": "Technologia naprawy pozwala zachować fabryczną powłokę lakierniczą."
       },
       "fast": {
         "title": "Szybka naprawa",
-        "text": "Większość zleceń realizujemy w ciągu 1–3 dni roboczych."
+        "text": "Czas naprawy to w niektórych przypadkach nawet 30 minut."
       },
       "cost": {
         "title": "Niższy koszt",
-        "text": "PDR jest zwykle wyraźnie tańsze niż tradycyjna blacharnia."
+        "text": "PDR jest zwykle wyraźnie tańszy niż tradycyjna naprawa lakiernicza."
       },
       "value": {
         "title": "Wartość pojazdu",
@@ -192,24 +193,24 @@
     "drag": "Przeciągnij, aby porównać"
   },
   "process": {
-    "title": "Prosty proces",
-    "subtitle": "Od zdjęć do odbioru auta — bez zbędnych formalności.",
+    "title": "Jak przebiega naprawa",
+    "subtitle": "Od wyceny do odbioru auta — jasno i bez zbędnych formalności.",
     "steps": {
       "1": {
-        "title": "Wyślij zdjęcia",
-        "text": "Zrób kilka zdjęć uszkodzeń smartfonem i prześlij je przez formularz lub WhatsApp."
+        "title": "Zadzwoń i umów wycenę",
+        "text": "Zadzwoń i umów się na wycenę uszkodzeń."
       },
       "2": {
-        "title": "Otrzymaj wycenę",
-        "text": "Otrzymasz wstępną wycenę i termin — zwykle w ciągu kilku godzin."
+        "title": "Wycena i decyzja",
+        "text": "Po wycenie możesz umówić się na naprawę lub przedstawić kosztorys firmie ubezpieczeniowej."
       },
       "3": {
         "title": "Naprawa",
-        "text": "Wykonujemy precyzyjną naprawę PDR w warsztacie lub mobilnie."
+        "text": "Zostawiasz auto do naprawy w umówionym terminie."
       },
       "4": {
         "title": "Odbierz auto",
-        "text": "Odbierasz pojazd z przywróconą linią blachy i oryginalnym lakierem."
+        "text": "Twoje auto jest już bez wgnieceń i ma zachowany oryginalny lakier."
       }
     }
   },

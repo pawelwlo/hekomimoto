@@ -4,7 +4,7 @@ export const routing = defineRouting({
   locales: ["pl", "en"],
   defaultLocale: "pl",
   localePrefix: "as-needed",
-  // Always start in Polish; don't auto-switch from browser Accept-Language
+  // Locale is chosen by geo middleware (PL → pl, elsewhere → en), not Accept-Language
   localeDetection: false,
 });
 

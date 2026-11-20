@@ -15,11 +15,14 @@ import { localBusinessJsonLd } from "@/lib/schema";
 import { siteConfig } from "@/content/site";
 import "../globals.css";
 
-/** Usuzi italic (Isuzu-style) — Iconian Fonts; commercial use requires $20 license */
+/** Usuzi Regular — same cut as the Iconian/DaFont preview (native vectors, no synth slant) */
 const usuzi = localFont({
   src: [
-    { path: "../../fonts/usuziital.ttf", weight: "400", style: "italic" },
-    { path: "../../fonts/usuziboldital.ttf", weight: "700", style: "italic" },
+    {
+      path: "../../fonts/usuzi/usuzi.ttf",
+      weight: "400",
+      style: "normal",
+    },
   ],
   variable: "--font-usuzi",
   display: "swap",

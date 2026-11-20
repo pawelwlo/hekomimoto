@@ -2,39 +2,40 @@
 
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
-import { routing, type Locale } from "@/i18n/routing";
+import type { Locale } from "@/i18n/routing";
+import { LOCALE_COOKIE } from "@/lib/geo-locale";
 import { cn } from "@/lib/utils";
+
+const ALT: Record<
+  Locale,
+  { locale: Locale; label: string }
+> = {
+  pl: { locale: "en", label: "English version" },
+  en: { locale: "pl", label: "Wersja polska" },
+};
 
 export function LanguageSwitcher({ className }: { className?: string }) {
   const locale = useLocale() as Locale;
   const pathname = usePathname();
   const router = useRouter();
+  const alt = ALT[locale];
+
+  function switchLocale() {
+    document.cookie = `${LOCALE_COOKIE}=${alt.locale}; path=/; max-age=${60 * 60 * 24 * 365}; samesite=lax`;
+    router.replace(pathname, { locale: alt.locale });
+  }
 
   return (
-    <div
+    <button
+      type="button"
+      onClick={switchLocale}
       className={cn(
-        "inline-flex items-center rounded-lg border border-white/10 bg-white/5 p-0.5 text-xs font-semibold",
+        "text-sm text-muted transition-colors hover:text-accent",
         className,
       )}
-      role="group"
-      aria-label="Language"
+      aria-label={alt.label}
     >
-      {routing.locales.map((l) => (
-        <button
-          key={l}
-          type="button"
-          onClick={() => router.replace(pathname, { locale: l })}
-          className={cn(
-            "rounded-md px-2.5 py-1.5 uppercase transition-colors",
-            locale === l
-              ? "bg-accent text-white"
-              : "text-muted hover:text-white",
-          )}
-          aria-pressed={locale === l}
-        >
-          {l}
-        </button>
-      ))}
-    </div>
+      {alt.label}
+    </button>
   );
 }

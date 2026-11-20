@@ -55,7 +55,11 @@ export function Hero() {
           transition={{ duration: 0.55, delay: 0.15 }}
           className="mt-5 max-w-2xl text-base text-neutral-300 md:text-lg"
         >
-          {t("subheadline")}
+          {t.rich("subheadline", {
+            gold: (chunks) => (
+              <span className="text-gold">{chunks}</span>
+            ),
+          })}
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 16 }}

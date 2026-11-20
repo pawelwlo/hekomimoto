@@ -46,14 +46,13 @@ env:
       - BUILD
       - RUNTIME
 
-# After creating secrets with:
+# Email + admin secrets (create, then uncomment the blocks below):
 #   firebase apphosting:secrets:set RESEND_API_KEY --project hekomimoto
 #   firebase apphosting:secrets:set RESEND_FROM --project hekomimoto
 #   firebase apphosting:secrets:set ADMIN_PASSWORD --project hekomimoto
 #   firebase apphosting:secrets:set ADMIN_SESSION_SECRET --project hekomimoto
-#   # optional if ADC is unavailable:
 #   firebase apphosting:secrets:set FIREBASE_SERVICE_ACCOUNT_JSON --project hekomimoto
-# add:
+#
 #   - variable: RESEND_API_KEY
 #     secret: RESEND_API_KEY
 #     availability: [RUNTIME]
