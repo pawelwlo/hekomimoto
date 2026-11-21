@@ -1,5 +1,11 @@
 import { Resend } from "resend";
 import { siteConfig } from "@/content/site";
+import {
+  brandedEmailHtml,
+  emailLink,
+  emailRows,
+  escapeHtml,
+} from "@/lib/email-layout";
 
 export type MailAttachment = {
   filename: string;
@@ -65,12 +71,13 @@ export async function sendEmail(input: {
   return data;
 }
 
-function escapeHtml(value: string) {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
+export async function filesToAttachments(files: File[]) {
+  return Promise.all(
+    files.map(async (file) => ({
+      filename: file.name || "photo.jpg",
+      content: Buffer.from(await file.arrayBuffer()),
+    })),
+  );
 }
 
 function quoteWorkshopHtml(input: {
@@ -83,76 +90,62 @@ function quoteWorkshopHtml(input: {
   const message = input.message.trim()
     ? escapeHtml(input.message).replaceAll("\n", "<br />")
     : "—";
-  const rows = [
-    ["Imię i nazwisko", escapeHtml(input.name)],
-    [
-      "Telefon",
-      `<a href="tel:${escapeHtml(input.phone)}" style="color:#e3262a;text-decoration:none;">${escapeHtml(input.phone)}</a>`,
-    ],
-    [
-      "E-mail",
-      `<a href="mailto:${escapeHtml(input.email)}" style="color:#e3262a;text-decoration:none;">${escapeHtml(input.email)}</a>`,
-    ],
-    [
-      "Załączniki",
-      input.attachmentCount
-        ? `${input.attachmentCount} (w załączeniu)`
-        : "Brak",
-    ],
-  ];
 
-  return `<!DOCTYPE html>
-<html lang="pl">
-<body style="margin:0;padding:0;background:#f4f4f5;font-family:Arial,Helvetica,sans-serif;color:#18181b;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f4f5;padding:24px 12px;">
-    <tr>
-      <td align="center">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e4e4e7;">
-          <tr>
-            <td style="background:#111111;padding:20px 24px;">
-              <p style="margin:0;font-size:20px;font-weight:700;color:#ffffff;letter-spacing:-0.02em;">
-                Hekomi<span style="color:#e3262a;">moto</span>
-              </p>
-              <p style="margin:8px 0 0;font-size:13px;color:#a1a1aa;">Nowe zgłoszenie wyceny</p>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:24px;">
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
-                ${rows
-                  .map(
-                    ([label, value]) => `
-                <tr>
-                  <td style="padding:10px 0;border-bottom:1px solid #f4f4f5;vertical-align:top;width:140px;font-size:13px;color:#71717a;">${label}</td>
-                  <td style="padding:10px 0;border-bottom:1px solid #f4f4f5;font-size:15px;font-weight:600;color:#18181b;">${value}</td>
-                </tr>`,
-                  )
-                  .join("")}
-              </table>
-              <p style="margin:20px 0 8px;font-size:13px;color:#71717a;">Wiadomość</p>
-              <div style="margin:0;padding:14px 16px;background:#fafafa;border:1px solid #f4f4f5;border-radius:8px;font-size:15px;line-height:1.5;color:#18181b;">
-                ${message}
-              </div>
-              <p style="margin:20px 0 0;font-size:12px;color:#a1a1aa;">
-                Odpowiedz na tę wiadomość, aby napisać bezpośrednio do klienta.
-              </p>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>`;
+  return brandedEmailHtml({
+    lang: "pl",
+    eyebrow: "Formularz kontaktowy",
+    title: "Nowe zgłoszenie wyceny",
+    bodyHtml: `
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        ${emailRows([
+          ["Imię i nazwisko", escapeHtml(input.name)],
+          ["Telefon", emailLink(`tel:${input.phone}`, input.phone)],
+          ["E-mail", emailLink(`mailto:${input.email}`, input.email)],
+          [
+            "Załączniki",
+            input.attachmentCount
+              ? `${input.attachmentCount} (w załączeniu)`
+              : "Brak",
+          ],
+        ])}
+      </table>
+      <p style="margin:22px 0 8px;font-family:Montserrat,Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:#a3a3a3;">Wiadomość</p>
+      <div style="margin:0;padding:14px 16px;background:#1a1a1a;border:1px solid rgba(255,255,255,0.08);border-radius:10px;font-size:15px;line-height:1.55;color:#ffffff;">
+        ${message}
+      </div>
+      <p style="margin:18px 0 0;font-size:13px;color:#a3a3a3;">
+        Odpowiedz na tę wiadomość, aby napisać bezpośrednio do klienta.
+      </p>
+    `,
+  });
 }
 
-export async function filesToAttachments(files: File[]) {
-  return Promise.all(
-    files.map(async (file) => ({
-      filename: file.name || "photo.jpg",
-      content: Buffer.from(await file.arrayBuffer()),
-    })),
-  );
+function quoteCustomerHtml(input: {
+  name: string;
+  hasPhotos: boolean;
+}) {
+  return brandedEmailHtml({
+    lang: "pl",
+    eyebrow: "Wycena",
+    title: "Otrzymaliśmy Twoje zgłoszenie",
+    bodyHtml: `
+      <p style="margin:0 0 14px;">Cześć ${escapeHtml(input.name)},</p>
+      <p style="margin:0 0 14px;">
+        ${
+          input.hasPhotos
+            ? "Dziękujemy za kontakt z Hekomimoto. Otrzymaliśmy Twoje zdjęcia i dane."
+            : "Dziękujemy za kontakt z Hekomimoto. Otrzymaliśmy Twoją wiadomość."
+        }
+      </p>
+      <p style="margin:0 0 18px;">Wkrótce odezwiemy się z wyceną.</p>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        ${emailRows([
+          ["Telefon", emailLink(siteConfig.phoneHref, siteConfig.phone)],
+          ["Adres", escapeHtml(siteConfig.address.full)],
+        ])}
+      </table>
+    `,
+  });
 }
 
 /** Admin + customer emails for contact / quote form. */
@@ -208,6 +201,10 @@ export async function sendQuoteEmails(input: {
         "",
         "Hekomimoto",
       ].join("\n"),
+      html: quoteCustomerHtml({
+        name: input.name,
+        hasPhotos: input.files.length > 0,
+      }),
     });
   } catch (error) {
     // Common while Resend domain is unverified (can only mail the account owner).

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Loader2, LogOut, Trash2 } from "lucide-react";
+import { AdminBlogPanel } from "@/components/admin/AdminBlogPanel";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { monthMatrix, todayWarsawDate } from "@/lib/booking/time";
@@ -23,12 +24,23 @@ const SLOT_STATUS_LABELS: Record<SlotStatus, string> = {
   booked: "zarezerwowany",
 };
 
+type AdminTab = "calendar" | "blog";
+type CalendarSubTab = "hours" | "pending" | "confirmed";
+
+const CALENDAR_SUBTABS: Array<{ id: CalendarSubTab; label: string }> = [
+  { id: "hours", label: "Godziny" },
+  { id: "pending", label: "Oczekujące" },
+  { id: "confirmed", label: "Potwierdzone" },
+];
+
 export function AdminPanel() {
   const today = todayWarsawDate();
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [tab, setTab] = useState<AdminTab>("calendar");
+  const [calendarTab, setCalendarTab] = useState<CalendarSubTab>("hours");
 
   const [year, setYear] = useState(() => Number(today.slice(0, 4)));
   const [monthIndex, setMonthIndex] = useState(
@@ -182,6 +194,13 @@ export function AdminPanel() {
     }
   }
 
+  function findBooking(bookingId: string) {
+    return (
+      bookings.pending.find((b) => b.id === bookingId) ??
+      bookings.confirmed.find((b) => b.id === bookingId)
+    );
+  }
+
   function draftFor(b: Booking) {
     return edits[b.id] ?? { date: b.date, time: b.time };
   }
@@ -191,7 +210,7 @@ export function AdminPanel() {
     patch: Partial<{ date: string; time: string }>,
   ) {
     setEdits((prev) => {
-      const fromBooking = bookings.pending.find((x) => x.id === bookingId);
+      const fromBooking = findBooking(bookingId);
       const current = prev[bookingId] ?? {
         date: fromBooking?.date ?? "",
         time: fromBooking?.time ?? "",
@@ -207,7 +226,7 @@ export function AdminPanel() {
   }
 
   async function saveSchedule(bookingId: string) {
-    const booking = bookings.pending.find((b) => b.id === bookingId);
+    const booking = findBooking(bookingId);
     if (!booking) return;
     const draft = draftFor(booking);
     if (draft.date === booking.date && draft.time === booking.time) {
@@ -232,7 +251,44 @@ export function AdminPanel() {
       if (!res.ok) {
         setMessage(data.error ?? "Nie udało się zmienić terminu.");
       } else {
-        setMessage("Termin zaktualizowany.");
+        setMessage(
+          booking.status === "confirmed"
+            ? "Termin zmieniony — wysłano e-mail do klienta."
+            : "Termin zaktualizowany.",
+        );
+        setEdits((prev) => {
+          const next = { ...prev };
+          delete next[bookingId];
+          return next;
+        });
+        await refresh();
+      }
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function cancelConfirmed(bookingId: string) {
+    const booking = bookings.confirmed.find((b) => b.id === bookingId);
+    if (!booking) return;
+    const ok = window.confirm(
+      `Odwołać rezerwację ${booking.name} (${booking.date} ${booking.time})? Klient dostanie e-mail.`,
+    );
+    if (!ok) return;
+
+    setBusy(true);
+    setMessage(null);
+    try {
+      const res = await fetch("/api/admin/bookings", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "cancel", bookingId }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setMessage(data.error ?? "Nie udało się odwołać rezerwacji.");
+      } else {
+        setMessage("Rezerwacja odwołana — wysłano e-mail do klienta.");
         setEdits((prev) => {
           const next = { ...prev };
           delete next[bookingId];
@@ -318,7 +374,7 @@ export function AdminPanel() {
           Panel admina
         </h1>
         <p className="mt-2 text-sm text-muted">
-          Zaloguj się hasłem, aby zarządzać terminami.
+          Zaloguj się hasłem, aby zarządzać terminami i blogiem.
         </p>
         <label className="mt-6 block text-sm">
           <span className="mb-1.5 block text-muted">Hasło</span>
@@ -354,10 +410,16 @@ export function AdminPanel() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="font-display text-3xl font-semibold text-white">
-            Terminy i rezerwacje
+            Panel admina
           </h1>
           <p className="mt-1 text-sm text-muted">
-            Otwieraj wolne godziny i zatwierdzaj zgłoszenia klientów.
+            {tab === "calendar"
+              ? calendarTab === "hours"
+                ? "Otwieraj i zarządzaj wolnymi godzinami."
+                : calendarTab === "pending"
+                  ? "Akceptuj lub odrzucaj zgłoszenia klientów."
+                  : "Zmieniaj lub odwołuj potwierdzone wizyty."
+              : "Twórz, edytuj i usuwaj wpisy na blogu."}
           </p>
         </div>
         <Button variant="secondary" onClick={logout}>
@@ -366,8 +428,85 @@ export function AdminPanel() {
         </Button>
       </div>
 
-      {message ? <p className="text-sm text-gold">{message}</p> : null}
+      <div
+        className="flex flex-wrap gap-2 border-b border-white/10 pb-3"
+        role="tablist"
+        aria-label="Sekcje panelu"
+      >
+        <button
+          type="button"
+          role="tab"
+          aria-selected={tab === "calendar"}
+          className={cn(
+            "rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
+            tab === "calendar"
+              ? "bg-accent text-white"
+              : "text-muted hover:bg-white/5 hover:text-white",
+          )}
+          onClick={() => setTab("calendar")}
+        >
+          Kalendarz
+        </button>
+        <button
+          type="button"
+          role="tab"
+          aria-selected={tab === "blog"}
+          className={cn(
+            "rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
+            tab === "blog"
+              ? "bg-accent text-white"
+              : "text-muted hover:bg-white/5 hover:text-white",
+          )}
+          onClick={() => setTab("blog")}
+        >
+          Blog
+        </button>
+      </div>
 
+      {tab === "blog" ? <AdminBlogPanel /> : null}
+
+      {tab === "calendar" ? (
+        <>
+          {message ? <p className="text-sm text-gold">{message}</p> : null}
+
+          <div
+            className="flex flex-wrap gap-2"
+            role="tablist"
+            aria-label="Sekcje kalendarza"
+          >
+            {CALENDAR_SUBTABS.map((item) => {
+              const count =
+                item.id === "pending"
+                  ? bookings.pending.length
+                  : item.id === "confirmed"
+                    ? bookings.confirmed.length
+                    : null;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={calendarTab === item.id}
+                  className={cn(
+                    "rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors",
+                    calendarTab === item.id
+                      ? "border-accent bg-accent/15 text-white"
+                      : "border-white/10 text-muted hover:border-white/20 hover:text-white",
+                  )}
+                  onClick={() => setCalendarTab(item.id)}
+                >
+                  {item.label}
+                  {count !== null && count > 0 ? (
+                    <span className="ml-2 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-white/10 px-1.5 text-xs">
+                      {count}
+                    </span>
+                  ) : null}
+                </button>
+              );
+            })}
+          </div>
+
+          {calendarTab === "hours" ? (
       <div className="grid gap-8 lg:grid-cols-2">
         <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 md:p-6">
           <div className="mb-4 flex items-center justify-between">
@@ -475,24 +614,46 @@ export function AdminPanel() {
               {daySlots.map((slot) => (
                 <li
                   key={slot.id}
-                  className="flex items-center justify-between rounded-lg border border-white/10 px-3 py-2 text-sm"
+                  className="flex items-center justify-between gap-2 rounded-lg border border-white/10 px-3 py-2 text-sm"
                 >
                   <span>
                     {slot.time}{" "}
                     <span className="text-muted">
                       ({SLOT_STATUS_LABELS[slot.status]})
                     </span>
+                    {slot.status === "booked" && slot.bookingId
+                      ? (() => {
+                          const linked = bookings.confirmed.find(
+                            (b) => b.id === slot.bookingId,
+                          );
+                          return linked
+                            ? ` · ${linked.name}`
+                            : null;
+                        })()
+                      : null}
                   </span>
-                  {slot.status === "open" ? (
-                    <button
-                      type="button"
-                      className="text-red-400 hover:text-red-300"
-                      onClick={() => removeSlot(slot.id)}
-                      aria-label="Usuń"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </button>
-                  ) : null}
+                  <span className="flex shrink-0 items-center gap-2">
+                    {slot.status === "booked" && slot.bookingId ? (
+                      <button
+                        type="button"
+                        className="text-xs text-red-400 hover:text-red-300"
+                        disabled={busy}
+                        onClick={() => cancelConfirmed(slot.bookingId!)}
+                      >
+                        Odwołaj
+                      </button>
+                    ) : null}
+                    {slot.status === "open" ? (
+                      <button
+                        type="button"
+                        className="text-red-400 hover:text-red-300"
+                        onClick={() => removeSlot(slot.id)}
+                        aria-label="Usuń"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    ) : null}
+                  </span>
                 </li>
               ))}
               {!daySlots.length ? (
@@ -502,7 +663,9 @@ export function AdminPanel() {
           </div>
         </div>
       </div>
+          ) : null}
 
+          {calendarTab === "pending" ? (
       <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 md:p-6">
         <h2 className="font-display text-xl font-semibold text-white">
           Oczekujące rezerwacje
@@ -606,25 +769,85 @@ export function AdminPanel() {
           ) : null}
         </div>
       </section>
+          ) : null}
 
+          {calendarTab === "confirmed" ? (
       <section className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 md:p-6">
         <h2 className="font-display text-xl font-semibold text-white">
           Potwierdzone
         </h2>
-        <ul className="mt-4 space-y-2 text-sm">
-          {bookings.confirmed.map((b) => (
-            <li key={b.id} className="text-muted">
-              <span className="text-white">
-                {b.date} {b.time}
-              </span>{" "}
-              — {b.name} ({b.phone})
-            </li>
-          ))}
+        <div className="mt-4 space-y-4">
+          {bookings.confirmed.map((b) => {
+            const draft = draftFor(b);
+            const dirty = draft.date !== b.date || draft.time !== b.time;
+            return (
+              <div
+                key={b.id}
+                className="rounded-xl border border-white/10 p-4"
+              >
+                <p className="font-semibold text-white">{b.name}</p>
+                <p className="mt-1 text-sm text-muted">
+                  {b.phone} · {b.email}
+                </p>
+                <p className="mt-1 text-xs text-muted">
+                  Potwierdzony termin: {b.date} {b.time}
+                </p>
+
+                <div className="mt-4 grid gap-3 sm:grid-cols-[1fr_auto_auto] sm:items-end">
+                  <label className="block text-sm">
+                    <span className="mb-1.5 block text-muted">Data</span>
+                    <input
+                      type="date"
+                      value={draft.date}
+                      onChange={(e) => setDraft(b.id, { date: e.target.value })}
+                      className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-white outline-none focus:border-accent"
+                    />
+                  </label>
+                  <label className="block text-sm">
+                    <span className="mb-1.5 block text-muted">Godzina</span>
+                    <select
+                      value={draft.time}
+                      onChange={(e) => setDraft(b.id, { time: e.target.value })}
+                      className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-white outline-none focus:border-accent"
+                    >
+                      {SLOT_HOURS.map((hour) => (
+                        <option key={hour} value={hour} className="bg-surface">
+                          {hour}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    disabled={busy || !dirty}
+                    onClick={() => saveSchedule(b.id)}
+                  >
+                    Zmień termin
+                  </Button>
+                </div>
+
+                <div className="mt-4">
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    disabled={busy}
+                    onClick={() => cancelConfirmed(b.id)}
+                  >
+                    Odwołaj rezerwację
+                  </Button>
+                </div>
+              </div>
+            );
+          })}
           {!bookings.confirmed.length ? (
-            <li className="text-muted">Brak potwierdzonych rezerwacji.</li>
+            <p className="text-sm text-muted">Brak potwierdzonych rezerwacji.</p>
           ) : null}
-        </ul>
+        </div>
       </section>
+          ) : null}
+        </>
+      ) : null}
     </div>
   );
 }

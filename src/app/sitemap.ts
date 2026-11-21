@@ -4,6 +4,7 @@ import { siteConfig } from "@/content/site";
 const paths = [
   "/",
   "/gallery",
+  "/blog",
   "/about",
   "/faq",
   "/booking",

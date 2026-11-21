@@ -24,6 +24,10 @@
       "title": "Rezerwacja terminu | Hekomimoto Poznań",
       "description": "Wybierz wolny termin naprawy PDR w Hekomimoto. Wyślij zdjęcia, telefon i e-mail — potwierdzimy rezerwację."
     },
+    "blog": {
+      "title": "Blog | Hekomimoto PDR Poznań",
+      "description": "Porady i realizacje usuwania wgnieceń metodą PDR — artykuły warsztatu Hekomimoto."
+    },
     "services": {
       "pdr": {
         "title": "Usuwanie wgnieceń PDR | Hekomimoto Poznań",
@@ -51,6 +55,7 @@
     "home": "Strona główna",
     "services": "Usługi",
     "gallery": "Galeria",
+    "blog": "Blog",
     "booking": "Termin",
     "about": "O nas",
     "faq": "FAQ",
@@ -282,6 +287,13 @@
     },
     "lightboxClose": "Zamknij",
     "empty": "Brak realizacji do wyświetlenia."
+  },
+  "blogPage": {
+    "title": "Blog",
+    "subtitle": "Realizacje i wiedza o usuwaniu wgnieceń metodą PDR.",
+    "readMore": "Czytaj więcej",
+    "back": "Wróć do bloga",
+    "empty": "Wkrótce pojawią się nowe wpisy."
   },
   "aboutPage": {
     "title": "O Hekomimoto",

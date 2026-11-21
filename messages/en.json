@@ -24,6 +24,10 @@
       "title": "Book an appointment | Hekomimoto Poznań",
       "description": "Choose an available PDR slot at Hekomimoto. Photos, phone and email are required — we confirm by email."
     },
+    "blog": {
+      "title": "Blog | Hekomimoto PDR Poznań",
+      "description": "Tips and paintless dent repair case studies from the Hekomimoto workshop."
+    },
     "services": {
       "pdr": {
         "title": "Paintless Dent Repair (PDR) | Hekomimoto Poznań",
@@ -51,6 +55,7 @@
     "home": "Home",
     "services": "Services",
     "gallery": "Gallery",
+    "blog": "Blog",
     "booking": "Book",
     "about": "About",
     "faq": "FAQ",
@@ -282,6 +287,13 @@
     },
     "lightboxClose": "Close",
     "empty": "No projects to display."
+  },
+  "blogPage": {
+    "title": "Blog",
+    "subtitle": "Case studies and tips on paintless dent repair.",
+    "readMore": "Read more",
+    "back": "Back to blog",
+    "empty": "New posts coming soon."
   },
   "aboutPage": {
     "title": "About Hekomimoto",

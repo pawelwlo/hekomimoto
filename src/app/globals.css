@@ -59,7 +59,7 @@ body {
   font-style: normal;
   font-weight: 400;
   letter-spacing: 0;
-  text-transform: uppercase;
+  text-transform: none;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -101,6 +101,89 @@ body {
   body {
     padding-bottom: 4.5rem;
   }
+}
+
+.blog-content {
+  color: #e5e5e5;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.blog-content p {
+  margin: 0 0 1.1em;
+}
+
+.blog-content h2,
+.blog-content h3,
+.blog-content h4 {
+  margin: 1.6em 0 0.6em;
+  color: #ffffff;
+  font-family: var(--font-montserrat), system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.blog-content a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.blog-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.25em 0;
+  border-radius: 0.75rem;
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin: 0 0 1.1em;
+  padding-left: 1.25em;
+}
+
+.blog-content li {
+  margin: 0.35em 0;
+}
+
+.blog-content figure {
+  margin: 1.5em 0;
+}
+
+.blog-content figcaption {
+  margin-top: 0.5em;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.blog-content .wp-block-gallery,
+.blog-content .blocks-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+  padding: 0;
+  margin: 1.25em 0;
+  list-style: none;
+}
+
+.blog-content .blocks-gallery-item,
+.blog-content .wp-block-image {
+  margin: 0;
+}
+
+.blog-content .blocks-gallery-item figure,
+.blog-content .wp-block-image figure {
+  margin: 0;
+  height: 100%;
+}
+
+.blog-content .blocks-gallery-item img,
+.blog-content .wp-block-image img {
+  width: 100%;
+  height: 100%;
+  max-height: 420px;
+  object-fit: cover;
 }
 
 @keyframes fade-up {

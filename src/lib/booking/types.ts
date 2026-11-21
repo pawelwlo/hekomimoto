@@ -1,6 +1,10 @@
 export type SlotStatus = "open" | "pending" | "booked";
 
-export type BookingStatus = "pending" | "confirmed" | "rejected";
+export type BookingStatus =
+  | "pending"
+  | "confirmed"
+  | "rejected"
+  | "cancelled";
 
 export type BookingSlot = {
   id: string;

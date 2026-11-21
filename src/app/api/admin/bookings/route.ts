@@ -1,13 +1,16 @@
 import { NextResponse } from "next/server";
 import { isAdminAuthenticated } from "@/lib/admin-auth";
 import {
+  emailCustomerCancellation,
   emailCustomerConfirmation,
   emailCustomerRejection,
+  emailCustomerReschedule,
 } from "@/lib/booking/email";
 import {
+  cancelConfirmedBooking,
   decideBooking,
   listBookingsByStatus,
-  reschedulePendingBooking,
+  rescheduleBooking,
 } from "@/lib/booking/store";
 import { FirebaseAdminConfigError } from "@/lib/firebase-admin";
 
@@ -44,9 +47,10 @@ export async function PATCH(request: Request) {
   const body = (await request.json().catch(() => null)) as {
     bookingId?: string;
     decision?: "confirmed" | "rejected";
-    action?: "decide" | "reschedule";
+    action?: "decide" | "reschedule" | "cancel";
     date?: string;
     time?: string;
+    notify?: boolean;
   } | null;
 
   const bookingId = String(body?.bookingId ?? "");
@@ -59,11 +63,31 @@ export async function PATCH(request: Request) {
     (body?.decision ? "decide" : body?.date && body?.time ? "reschedule" : null);
 
   try {
+    if (action === "cancel") {
+      const booking = await cancelConfirmedBooking(bookingId);
+      await emailCustomerCancellation(booking);
+      return NextResponse.json({ ok: true, booking });
+    }
+
     if (action === "reschedule") {
       const date = String(body?.date ?? "");
       const time = String(body?.time ?? "");
-      const booking = await reschedulePendingBooking(bookingId, date, time);
-      return NextResponse.json({ ok: true, booking });
+      const result = await rescheduleBooking(bookingId, date, time);
+
+      // Notify client only when a confirmed booking actually moved.
+      if (
+        result.changed &&
+        result.booking.status === "confirmed" &&
+        body?.notify !== false
+      ) {
+        await emailCustomerReschedule(result.booking, result.previous);
+      }
+
+      return NextResponse.json({
+        ok: true,
+        booking: result.booking,
+        changed: result.changed,
+      });
     }
 
     const decision = body?.decision;

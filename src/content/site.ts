@@ -32,6 +32,7 @@ export const navItems = [
   { href: "/", key: "home" },
   { href: "/services/pdr", key: "services" },
   { href: "/gallery", key: "gallery" },
+  { href: "/blog", key: "blog" },
   { href: "/booking", key: "booking" },
   { href: "/about", key: "about" },
   { href: "/faq", key: "faq" },

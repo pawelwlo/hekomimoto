@@ -211,7 +211,7 @@ export async function listBookingsByStatus(
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 
-export async function reschedulePendingBooking(
+export async function rescheduleBooking(
   bookingId: string,
   date: string,
   time: string,
@@ -238,13 +238,22 @@ export async function reschedulePendingBooking(
     const bookingSnap = await tx.get(bookingRef);
     if (!bookingSnap.exists) throw new Error("Booking not found");
     const current = { id: bookingSnap.id, ...bookingSnap.data() } as Booking;
-    if (current.status !== "pending") {
-      throw new Error("Only pending bookings can be rescheduled");
+    if (current.status !== "pending" && current.status !== "confirmed") {
+      throw new Error("Only pending or confirmed bookings can be rescheduled");
     }
 
+    const previous = {
+      date: current.date,
+      time: current.time,
+      startAt: current.startAt,
+    };
+
     if (current.slotId === newSlotId) {
-      return current;
+      return { booking: current, previous, changed: false as const };
     }
+
+    const slotStatus: SlotStatus =
+      current.status === "confirmed" ? "booked" : "pending";
 
     const oldSlotRef = db.collection(SLOTS).doc(current.slotId);
     const newSlotRef = db.collection(SLOTS).doc(newSlotId);
@@ -259,7 +268,7 @@ export async function reschedulePendingBooking(
         throw new Error("Target slot is not available");
       }
       tx.update(newSlotRef, {
-        status: "pending",
+        status: slotStatus,
         bookingId: current.id,
         updatedAt: now,
       });
@@ -270,7 +279,7 @@ export async function reschedulePendingBooking(
         time,
         startAt: start.toISOString(),
         endAt: end.toISOString(),
-        status: "pending",
+        status: slotStatus,
         bookingId: current.id,
         createdAt: now,
         updatedAt: now,
@@ -304,7 +313,56 @@ export async function reschedulePendingBooking(
       updatedAt: now,
     });
 
-    return updated;
+    return { booking: updated, previous, changed: true as const };
+  });
+}
+
+/** @deprecated Use rescheduleBooking */
+export async function reschedulePendingBooking(
+  bookingId: string,
+  date: string,
+  time: string,
+) {
+  const result = await rescheduleBooking(bookingId, date, time);
+  return result.booking;
+}
+
+export async function cancelConfirmedBooking(bookingId: string) {
+  const db = getAdminDb();
+  const bookingRef = db.collection(BOOKINGS).doc(bookingId);
+  const now = nowIso();
+
+  return db.runTransaction(async (tx) => {
+    const bookingSnap = await tx.get(bookingRef);
+    if (!bookingSnap.exists) throw new Error("Booking not found");
+    const current = { id: bookingSnap.id, ...bookingSnap.data() } as Booking;
+    if (current.status !== "confirmed") {
+      throw new Error("Only confirmed bookings can be cancelled");
+    }
+
+    const slotRef = db.collection(SLOTS).doc(current.slotId);
+    const slotSnap = await tx.get(slotRef);
+
+    tx.update(bookingRef, {
+      status: "cancelled",
+      updatedAt: now,
+      decidedAt: now,
+    });
+
+    if (slotSnap.exists) {
+      tx.update(slotRef, {
+        status: "open",
+        bookingId: null,
+        updatedAt: now,
+      });
+    }
+
+    return {
+      ...current,
+      status: "cancelled" as const,
+      updatedAt: now,
+      decidedAt: now,
+    };
   });
 }
 
